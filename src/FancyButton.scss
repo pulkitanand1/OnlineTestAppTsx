@@ -1,0 +1,41 @@
+$buttonHeight: 40px;
+$buttonWidth: 100px;
+
+@mixin fancyButton($disabled: false, $btnColor: Black) {
+  margin-left: 1vw;
+  margin-top: 1vw;
+  color: white;
+  font-weight: bolder;
+  border: none;
+  width: $buttonWidth;
+  height: $buttonHeight;
+  font-size: 15px;
+  @if ($disabled) {
+    background-color: lightgray;
+    cursor: not-allowed;
+  } @else {
+    background-color: $btnColor;
+    cursor: pointer;
+  }
+}
+
+div.buttonArea {
+  height: $buttonHeight;
+  margin: 1vw;
+  width: $buttonWidth;
+}
+
+button.blackButton {
+  @include fancyButton();
+}
+
+button:disabled.blackButton {
+  @include fancyButton($disabled: true);
+}
+
+button.greenButton {
+  @include fancyButton($disabled: false, $btnColor: rgb(12, 117, 12));
+}
+button:disabled.greenButton {
+  @include fancyButton($disabled: true);
+}

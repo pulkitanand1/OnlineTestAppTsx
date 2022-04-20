@@ -1,0 +1,37 @@
+@use "../App.scss";
+$form-font-size: 18px;
+
+.registrationForm {
+  @extend %center-align;
+  border: 1px black dotted;
+  margin-top: 2vh;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  width: 35%;
+}
+
+.formHeader {
+  margin-left: 1vw;
+}
+
+.formField {
+  margin-left: 1vw;
+  margin-top: 1vw;
+  font-size: $form-font-size;
+}
+
+.formField::placeholder {
+  font-size: 15px;
+}
+
+.formField[type="select"] {
+  font-size: 15px;
+}
+
+.emailFormField {
+  @extend .formField;
+  width: 19vw;
+}
+option {
+  font-size: 15px;
+}

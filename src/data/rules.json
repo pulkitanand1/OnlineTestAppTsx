@@ -1,0 +1,33 @@
+[
+  { "id": 1, "ruleText": "This is a time based test." },
+  {
+    "id": 2,
+    "ruleText": "The test will be auto submitted after time limit is lapsed."
+  },
+  { "id": 3, "ruleText": "Use the Submit button to finish the test." },
+  {
+    "id": 4,
+    "ruleText": "Please note that once a test is submitted, it cannot be resumed."
+  },
+  {
+    "id": 5,
+    "ruleText": "The time will be displayed on top right updating each second. Time limit for each test vary with the level of test."
+  },
+  {
+    "id": 6,
+    "ruleText": "There would be two types of questions - Single Choice and Multiple Choice questions."
+  },
+  {
+    "id": 7,
+    "ruleText": "Single choice questions will have Radio button, while multiple choice questions will have check boxes."
+  },
+  { "id": 8, "ruleText": "User can navigate to next and previous questions." },
+  {
+    "id": 9,
+    "ruleText": "Upon submission, user will be prompted for confirmation."
+  },
+  {
+    "id": 10,
+    "ruleText": "Result can be downloaded after the test submissoin."
+  }
+]

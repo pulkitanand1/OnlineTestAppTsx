@@ -1,0 +1,11 @@
+[
+  { "level": 1, "questionId": 1, "correctAnswerIds": [3] },
+  { "level": 1, "questionId": 2, "correctAnswerIds": [2, 3] },
+  { "level": 1, "questionId": 3, "correctAnswerIds": [4] },
+  { "level": 2, "questionId": 1, "correctAnswerIds": [3] },
+  { "level": 2, "questionId": 2, "correctAnswerIds": [1] },
+  { "level": 2, "questionId": 3, "correctAnswerIds": [1, 4] },
+  { "level": 3, "questionId": 1, "correctAnswerIds": [2] },
+  { "level": 3, "questionId": 2, "correctAnswerIds": [1] },
+  { "level": 3, "questionId": 3, "correctAnswerIds": [1, 3] }
+]

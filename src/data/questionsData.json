@@ -1,0 +1,112 @@
+[
+  {
+    "level": 1,
+    "questionId": 1,
+    "questionType": "s",
+    "questionText": "What's is 4+4+5?",
+    "answers": [
+      { "answerId": 1, "answerText": "20" },
+      { "answerId": 2, "answerText": "11" },
+      { "answerId": 3, "answerText": "13" },
+      { "answerId": 4, "answerText": "14" }
+    ]
+  },
+  {
+    "level": 1,
+    "questionId": 2,
+    "questionType": "m",
+    "questionText": "Select the odd numbers among given options",
+    "answers": [
+      { "answerId": 1, "answerText": "20" },
+      { "answerId": 2, "answerText": "11" },
+      { "answerId": 3, "answerText": "13" },
+      { "answerId": 4, "answerText": "14" }
+    ]
+  },
+  {
+    "level": 1,
+    "questionId": 3,
+    "questionType": "s",
+    "questionText": "Which is the third planet in our solar system?",
+    "answers": [
+      { "answerId": 1, "answerText": "Neptune" },
+      { "answerId": 2, "answerText": "Mercury" },
+      { "answerId": 3, "answerText": "Mars" },
+      { "answerId": 4, "answerText": "Earth" }
+    ]
+  },
+  {
+    "level": 2,
+    "questionId": 1,
+    "questionType": "s",
+    "questionText": "When is the festival of christmas celebrated?",
+    "answers": [
+      { "answerId": 1, "answerText": "25th January" },
+      { "answerId": 2, "answerText": "12th March" },
+      { "answerId": 3, "answerText": "25th December" },
+      { "answerId": 4, "answerText": "1st December" }
+    ]
+  },
+
+  {
+    "level": 2,
+    "questionId": 2,
+    "questionType": "s",
+    "questionText": "How many days does February have in a leap year?",
+    "answers": [
+      { "answerId": 1, "answerText": "29" },
+      { "answerId": 2, "answerText": "30" },
+      { "answerId": 3, "answerText": "28" },
+      { "answerId": 4, "answerText": "31" }
+    ]
+  },
+
+  {
+    "level": 2,
+    "questionId": 3,
+    "questionType": "m",
+    "questionText": "Select the true statements:",
+    "answers": [
+      { "answerId": 1, "answerText": "Winters are cold" },
+      { "answerId": 2, "answerText": "Sun sets in the east" },
+      { "answerId": 3, "answerText": "3 is greater than 5" },
+      { "answerId": 4, "answerText": "Earth has 1 moon" }
+    ]
+  },
+  {
+    "level": 3,
+    "questionId": 1,
+    "questionType": "s",
+    "questionText": "Which company owns YouTube?",
+    "answers": [
+      { "answerId": 1, "answerText": "Microsoft" },
+      { "answerId": 2, "answerText": "Google" },
+      { "answerId": 3, "answerText": "Apple" },
+      { "answerId": 4, "answerText": "Adobe" }
+    ]
+  },
+  {
+    "level": 3,
+    "questionId": 2,
+    "questionType": "s",
+    "questionText": "How many kilometeres (approx.) are there in 1 mile?",
+    "answers": [
+      { "answerId": 1, "answerText": "1.6 Kms" },
+      { "answerId": 2, "answerText": "1.8 Kms" },
+      { "answerId": 3, "answerText": "1.5 Kms" },
+      { "answerId": 4, "answerText": "1.4 Kms" }
+    ]
+  },
+  {
+    "level": 3,
+    "questionId": 3,
+    "questionType": "m",
+    "questionText": "Which of the following are vegetables?",
+    "answers": [
+      { "answerId": 1, "answerText": "Potato" },
+      { "answerId": 2, "answerText": "Orange" },
+      { "answerId": 3, "answerText": "Tomato" },
+      { "answerId": 4, "answerText": "Grapes" }
+    ]
+  }
+]

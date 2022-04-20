@@ -1,0 +1,28 @@
+$margin-left: 1vw;
+$margin-top: 1vh;
+
+.rules {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.rulesList {
+  margin-left: $margin-left;
+  width: 60%;
+  font-size: 18px;
+}
+
+.examStartPanel {
+  margin-left: $margin-left;
+  align-items: center;
+  margin: auto;
+  margin-top: 1vh;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+
+.acceptanceText {
+  margin-left: 2vw;
+}

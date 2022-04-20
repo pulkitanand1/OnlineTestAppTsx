@@ -1,0 +1,42 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+$background: radial-gradient(
+  circle,
+  rgba(255, 255, 255, 1) 0%,
+  rgba(148, 195, 233, 1) 100%,
+  rgba(225, 238, 249, 1) 100%
+);
+$box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+$padding: 10px;
+
+%center-align {
+  margin: auto;
+  padding: $padding;
+  border-radius: 10px;
+}
+
+div.center {
+  @extend %center-align;
+  align-items: center;
+  text-align: center;
+}
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+  background: $background;
+}
+
+.onlineTestAppHeader {
+  @extend %center-align;
+  font-family: "Open Sans";
+  font-size: 2vw;
+  width: 30%;
+  box-shadow: $box-shadow;
+  align-items: center;
+  background: steelblue;
+  color: white;
+  text-align: center;
+}
