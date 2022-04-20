@@ -5,6 +5,11 @@ import "../App.scss";
 import "./Registration.scss";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * This is the Registration Page component.
+ * @param props
+ * @returns 
+ */
 function Registration(props: any) {
   const { setCanDoExam, setRegistrationData } = props;
   let navigate = useNavigate();

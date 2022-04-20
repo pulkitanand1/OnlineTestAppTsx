@@ -10,6 +10,13 @@ interface EvaluationItem {
   correctAnswers: string[];
 }
 
+/**
+ * Evaluates Answer Matrix (user responses) and returns the final test result
+ * @param answerMatrix 
+ * @param questionsData 
+ * @param registrationData 
+ * @returns 
+ */
 export const finishAndEvaluateTest = (
   answerMatrix: AnswerMatrixItem[],
   questionsData: QuestionDataItem[],
@@ -80,6 +87,12 @@ export const finishAndEvaluateTest = (
   );
   return url;
 
+  /**
+   * Returns the correct answer Ids for a questionId and level.
+   * @param level 
+   * @param questionId 
+   * @returns 
+   */
   function getCorrectAnswerForQuestion(
     level: number,
     questionId: number
@@ -90,6 +103,13 @@ export const finishAndEvaluateTest = (
     return answerKeyItem ? answerKeyItem.correctAnswerIds : [];
   }
 
+  /**
+   * Returns Answer test for Question 
+   * @param level 
+   * @param questionId 
+   * @param answerIds 
+   * @returns 
+   */
   function getAnswersTextForQuestion(
     level: number,
     questionId: number,

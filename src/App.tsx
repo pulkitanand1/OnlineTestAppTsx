@@ -9,6 +9,7 @@ import {
   Navigate,
 } from "react-router-dom";
 
+/**This is the app component - the very fist component displayed upon render. */
 function App() {
   // Use this value to toggle testing.
   let canDoExamWithoutRegister: boolean = false;
@@ -17,6 +18,7 @@ function App() {
   const Registration = lazy(() => import("./Exam/Registration"));
   const Exam = lazy(() => import("./Exam/Exam"));
 
+  /** This component controls access to Exam component on the basis of state value canDoExam */
   const ProtectedRoute = (props: any) => {
     const { canDoExam, redirectPath, children } = props;
     if (canDoExam === false) {
@@ -31,11 +33,12 @@ function App() {
     children: PropTypes.object,
   };
 
+
+  /** Returns control back to home with the help of state. */
   function navigateToHome() {
     setRegistrationData(undefined);
     setCanDoExam(false);
   }
-
   const registrationPassThruProps = { setCanDoExam, setRegistrationData };
   return (
     <div>

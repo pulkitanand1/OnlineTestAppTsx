@@ -4,13 +4,16 @@ import * as dp from "../DataProvider";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-function ExamInformation(props: any) {
+/** Returns the Exam Information Component  */
+function Information(props: any) {
   const { acceptRules } = props;
   const rules = dp.getRules();
   const levels = dp.getLevels();
   const [examLevel, setExamlLevel] = useState(levels[0]);
   const [isChecked, setIsChecked] = useState(false);
 
+  /** Handles the level selection event. 
+   */
   function handleLevelSelection(e: any) {
     let eLevel = levels.find((l) => l.id === parseInt(e.target.value));
     if (eLevel) {
@@ -18,6 +21,7 @@ function ExamInformation(props: any) {
     }
   }
 
+  /** Returns rules and regulations along with level selection drop down, and rules acceptance checkbox. */
   const rulesAndRegulations = (
     <div className="rules">
       <div className="rulesList">
@@ -69,8 +73,8 @@ function ExamInformation(props: any) {
   return rulesAndRegulations;
 }
 
-ExamInformation.propTypes = {
+Information.propTypes = {
   acceptRules: PropTypes.func,
 };
 
-export default ExamInformation;
+export default Information;

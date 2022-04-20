@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import "./FancyButton.scss";
 
+/** A component that returns a sytlized button handling submit and click events on the basis of property. */
 function FancyButton(props: any) {
   const buttonText = props.buttonText;
   const isDisabled = props.isDisabled;

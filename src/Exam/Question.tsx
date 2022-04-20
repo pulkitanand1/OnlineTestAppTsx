@@ -3,6 +3,7 @@ import "../Common.scss";
 import { AnswerItem } from "../dataTypes/AnswerItem";
 import { AnswerMatrixItem } from "../dataTypes/AnswerMatrixItem";
 
+/** Returns the question that's rendered */
 function Question(props: any) {
   const { currentQuestion, handleUserSelection, answerMatrix } = props;
   const questionType = currentQuestion.questionType;

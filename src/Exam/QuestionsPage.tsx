@@ -1,17 +1,17 @@
 import TimerForTest from "./TimerForTest";
-import { HTMLInputTypeAttribute, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import FancyButton from "../FancyButton";
 import * as dp from "../DataProvider";
 import * as dm from "../DataManipulation";
 import "../Common.scss";
 import React from "react";
-import Question from "./QuestionItem";
+import Question from "./Question";
 import { AnswerMatrixItem } from "../dataTypes/AnswerMatrixItem";
 import { QuestionDataItem } from "../dataTypes/QuestionDataItem";
 
 function QuestionsPage(props: any) {
-  let allowTimerControl = false; // Use to enable start stop timer button for testing.
+  const allowTimerControl = false; // Use to enable start stop timer button for testing.
   const {
     navigateAfterTestEnd,
     selectedLevel,
@@ -40,6 +40,9 @@ function QuestionsPage(props: any) {
   const [answerMatrix, setAnswerMatrix] = useState(blankAnswersMatrix);
   const totalQuestions = questions.length;
 
+  /**
+   * This effect is responsible for updading component timer state and finishing the session.
+   */
   useEffect(() => {
     let timerID: NodeJS.Timeout;
     if (isTimerStarted) {
@@ -57,6 +60,14 @@ function QuestionsPage(props: any) {
     };
   });
 
+  /**
+   * Updates the answers Matrix based on user Input.
+   * This helps in keeping the Question Component controlled
+   * as the checked property is maintained on the basis of these entries.
+   * @param questionId - Question Id for which response has been recorded
+   * @param answerId - Selected Response(s)
+   * @param isChecked - true will add it to selectedResponses, false will remove it
+   */
   function updateAnswersMatrix(
     questionId: number,
     answerId: number,
@@ -98,22 +109,36 @@ function QuestionsPage(props: any) {
     setTimerStarted(false);
   };
 
+  /**
+   * Handles User selection from checkboxes and radio buttons. Acts like a wrapper.
+   * @param e 
+   * @param answerId 
+   */
   const handleUserSelection = (e: any, answerId: number) => {
     updateAnswersMatrix(currentQuestion.questionId, answerId, e.target.checked);
   };
 
+  /**
+   * Handles Previous Question button click.
+   */
   const handleGoToPreviousQuestion = () => {
     if (currentQuestionIndex !== 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
   };
 
+  /**
+   * Handles Next Question button click.
+   */
   const handleGoToNextQuestion = () => {
     if (currentQuestionIndex !== questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
 
+  /**
+   * Handles Submit button click.
+   */
   const handleFinishTest = () => {
     let executeResult = window.confirm(
       "Are you sure you want to submit this test?"
@@ -123,6 +148,9 @@ function QuestionsPage(props: any) {
     }
   };
 
+  /**
+   * Handles Download button click.
+   */
   const handleDownloadResult = () => {
     const url = dm.finishAndEvaluateTest(
       answerMatrix,
@@ -136,6 +164,9 @@ function QuestionsPage(props: any) {
     }
   };
 
+  /**
+   * Performs neccessary state changes to end test session in both auto and manual submission.
+   */
   const finishTest = () => {
     setTimerStarted(true);
     setTimeLeft(0);
@@ -143,6 +174,9 @@ function QuestionsPage(props: any) {
 
   const passThruProps = { currentQuestion, handleUserSelection, answerMatrix };
 
+  /**
+   * Button panel that comprises of "Previous Question", "Next Question" and "Submit" buttons.
+   */
   const buttonPanel = (
     <div className="questionNavButtonPanel">
       <div className="panLeft">
@@ -168,6 +202,10 @@ function QuestionsPage(props: any) {
   );
   let attemptedQuestionsCount = attemptedQuestions.length;
 
+  /**
+   * Test component contains Question components and button panel. 
+   * This is where question answers are displayed along with the timer.
+   */
   const testComponent = (
     <div>
       <div className="commonFlexPanel">
@@ -208,6 +246,10 @@ function QuestionsPage(props: any) {
     </div>
   );
 
+  /**
+   * This is displayed when the test ends either after timeout or manual submission.
+   * It shows the "Download Result" button and "Exit" button.
+   */
   const examOver = (
     <div className="center">
       <div>
