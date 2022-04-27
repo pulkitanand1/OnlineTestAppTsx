@@ -207,7 +207,7 @@ function QuestionsPage(props: any) {
    * This is where question answers are displayed along with the timer.
    */
   const testComponent = (
-    <div>
+    <div data-testid="testComponent">
       <div className="commonFlexPanel">
         <div className="panLeft">
           <h1 className="noPaddingMargin">
@@ -251,7 +251,7 @@ function QuestionsPage(props: any) {
    * It shows the "Download Result" button and "Exit" button.
    */
   const examOver = (
-    <div className="center">
+    <div className="center" data-testid="examOver">
       <div>
         <h1>Exam is over!</h1>
         <h2>

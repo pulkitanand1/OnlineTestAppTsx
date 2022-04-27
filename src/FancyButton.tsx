@@ -12,6 +12,7 @@ function FancyButton(props: any) {
     <div className="buttonArea">
       <button
         type={isSubmit ? "submit" : "button"}
+        role="button"
         className="blackButton"
         disabled={isDisabled}
         onClick={!isSubmit ? onClick : null}

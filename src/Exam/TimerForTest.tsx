@@ -20,11 +20,11 @@ function TimerForTest(props: any) {
   }
 
   return (
-    <div className="timerContainer">
+    <div className="timerContainer" data-testid="testtimer-1">
       <div className="timerBox">
         <h3 className="timeLeft">
           Time Left :{" "}
-          <span className={className}>
+          <span className={className} data-testid="actualTimer">
             {minutesLeft.toString().padStart(2, "0")} :{" "}
             {secondsLeft.toString().padStart(2, "0")}
           </span>

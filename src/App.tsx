@@ -42,13 +42,13 @@ function App() {
   const registrationPassThruProps = { setCanDoExam, setRegistrationData };
   return (
     <div>
-      <div className="onlineTestAppHeader">Online Test App</div>
+      <div className="onlineTestAppHeader" data-testid="testAppHeader">Online Test App</div>
       <Router>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route
               path="/"
-              element={<Registration {...registrationPassThruProps} />}
+              element={<Registration {...registrationPassThruProps} data-testid="registration"/>}
             />
             <Route
               path="/exam"
