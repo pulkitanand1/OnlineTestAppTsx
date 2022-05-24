@@ -2,8 +2,6 @@ $buttonHeight: 40px;
 $buttonWidth: 100px;
 
 @mixin fancyButton($disabled: false, $btnColor: Black) {
-  margin-left: 1vw;
-  margin-top: 1vw;
   color: white;
   font-weight: bolder;
   border: none;

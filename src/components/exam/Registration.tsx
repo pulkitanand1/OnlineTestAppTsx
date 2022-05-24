@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 /**
  * This is the Registration Page component.
  * @param props
- * @returns 
+ * @returns
  */
 function Registration(props: any) {
   const { setCanDoExam, setRegistrationData } = props;
@@ -24,33 +24,35 @@ function Registration(props: any) {
           navigate("/exam", { replace: true });
         }}
       >
-        <Form>
-          <Field
-            required
-            name="fName"
-            className="formField"
-            type="text"
-            placeholder="First Name"
-          />
-          <Field
-            required
-            name="lName"
-            className="formField"
-            type="text"
-            placeholder="Last Name"
-          />
-          <Field
-            required
-            name="email"
-            className="emailFormField"
-            type="email"
-            placeholder="Email"
-          />
-          <Field name="gender" className="formField" as="select">
-            <option value="Male">{"Male"}</option>
-            <option value="Female">{"Female"}</option>
-          </Field>
-          <br />
+        <Form className="regForm">
+          <div className="formLine">
+            <div className="formWrap">
+              <label className="formLabel">First Name</label>
+              <Field className="formField" required name="fName" type="text" />
+            </div>
+            <div className="formWrap">
+              <label className="formLabel">Last Name</label>
+              <Field required name="lName" className="formField" type="text" />
+            </div>
+          </div>
+
+          <div className="formWrap">
+            <label className="formLabel">Email</label>
+            <Field
+              required
+              name="email"
+              className="emailFormField"
+              type="email"
+            />
+          </div>
+
+          <div className="formWrap">
+            <label className="formLabel">Gender</label>
+            <Field name="gender" className="selectFormField" as="select">
+              <option value="Male">{"Male"}</option>
+              <option value="Female">{"Female"}</option>
+            </Field>
+          </div>
           <FancyButton buttonText={"Register"} isSubmit={true} />
         </Form>
       </Formik>

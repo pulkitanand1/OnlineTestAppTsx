@@ -211,7 +211,7 @@ function QuestionsPage(props: any) {
       <div className="commonFlexPanel">
         <div className="panLeft">
           <h1 className="noPaddingMargin">
-            Welcome {registrationData.fName}, {registrationData.lName}
+            Welcome {registrationData.fName} {registrationData.lName}
           </h1>
         </div>
         <div className="panRight">

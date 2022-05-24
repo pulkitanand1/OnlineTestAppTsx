@@ -5,32 +5,46 @@ $form-font-size: 18px;
   @extend %center-align;
   border: 1px black dotted;
   margin-top: 2vh;
-  padding-top: 2vh;
-  padding-bottom: 2vh;
-  width: 35%;
+  width: fit-content;
 }
 
+.regForm{
+  margin-right: 1vw;
+}
 .formHeader {
   margin-left: 1vw;
 }
 
-.formField {
+.formLine {
+  display: flex;
+  flex-direction: row;
+}
+
+.formWrap {
   margin-left: 1vw;
-  margin-top: 1vw;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.formField {
+  width: 150px;
   font-size: $form-font-size;
 }
 
-.formField::placeholder {
-  font-size: 15px;
+.formLabel {
+  margin-bottom: 4px;
+  font-size: 12px;
 }
 
-.formField[type="select"] {
-  font-size: 15px;
+.selectFormField {
+  @extend .formField;
+  width: 156px;
 }
 
 .emailFormField {
   @extend .formField;
-  width: 19vw;
+  width: 323px;
 }
 option {
   font-size: 15px;
