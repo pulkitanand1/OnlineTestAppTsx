@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import "../Common.scss";
+import "../../Common.scss";
 
 /**
  * This is the timer that runs according to the test time limit.

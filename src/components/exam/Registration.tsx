@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { Formik, Field, Form } from "formik";
-import FancyButton from "../FancyButton";
-import "../App.scss";
+import FancyButton from "../common/FancyButton";
 import "./Registration.scss";
 import { useNavigate } from "react-router-dom";
 

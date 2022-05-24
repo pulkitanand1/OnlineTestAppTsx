@@ -1,6 +1,6 @@
 import "./Information.scss";
-import "../Common.scss";
-import * as dp from "../DataProvider";
+import "../../Common.scss";
+import * as dp from "../../DataProvider";
 import PropTypes from "prop-types";
 import { useState } from "react";
 

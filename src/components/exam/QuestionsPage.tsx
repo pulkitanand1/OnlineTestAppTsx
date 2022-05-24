@@ -1,14 +1,14 @@
 import TimerForTest from "./TimerForTest";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import FancyButton from "../FancyButton";
-import * as dp from "../DataProvider";
-import * as dm from "../DataManipulation";
-import "../Common.scss";
+import FancyButton from "../common/FancyButton";
+import * as dp from "../../DataProvider";
+import * as dm from "../../DataManipulation";
+import "../../Common.scss";
 import React from "react";
 import Question from "./Question";
-import { AnswerMatrixItem } from "../dataTypes/AnswerMatrixItem";
-import { QuestionDataItem } from "../dataTypes/QuestionDataItem";
+import { AnswerMatrixItem } from "../../dataTypes/AnswerMatrixItem";
+import { QuestionDataItem } from "../../dataTypes/QuestionDataItem";
 
 function QuestionsPage(props: any) {
   const allowTimerControl = false; // Use to enable start stop timer button for testing.

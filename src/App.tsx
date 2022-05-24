@@ -15,8 +15,8 @@ function App() {
   let canDoExamWithoutRegister: boolean = false;
   const [canDoExam, setCanDoExam] = useState(canDoExamWithoutRegister);
   const [registrationData, setRegistrationData] = useState();
-  const Registration = lazy(() => import("./Exam/Registration"));
-  const Exam = lazy(() => import("./Exam/Exam"));
+  const Registration = lazy(() => import("./components/exam/Registration"));
+  const Exam = lazy(() => import("./components/exam/Exam"));
 
   /** This component controls access to Exam component on the basis of state value canDoExam */
   const ProtectedRoute = (props: any) => {
