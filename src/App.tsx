@@ -39,6 +39,7 @@ function App() {
     setRegistrationData(undefined);
     setCanDoExam(false);
   }
+  
   const registrationPassThruProps = { setCanDoExam, setRegistrationData };
   return (
     <div>

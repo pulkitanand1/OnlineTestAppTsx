@@ -9,8 +9,9 @@ import "../../Common.scss";
  * @returns 
  */
 function TimerForTest(props: any) {
-  let minutesLeft = Math.floor(props.timeLeft / 60);
-  let secondsLeft = props.timeLeft % 60;
+  const {timeLeft} = props;
+  let minutesLeft = Math.floor(timeLeft/ 60);
+  let secondsLeft = timeLeft % 60;
   let className = "timer";
 
   if (minutesLeft === 0 && secondsLeft > 0) {
@@ -18,7 +19,6 @@ function TimerForTest(props: any) {
   } else if (minutesLeft > 0 && secondsLeft > 0) {
     className = "timer";
   }
-
   return (
     <div className="timerContainer" data-testid="testtimer-1">
       <div className="timerBox">
@@ -35,8 +35,7 @@ function TimerForTest(props: any) {
 }
 
 TimerForTest.propTypes = {
-  timeLeft: PropTypes.number,
-  stopCountDown: PropTypes.func,
+  timeLeft: PropTypes.number
 };
 
 export default TimerForTest;
