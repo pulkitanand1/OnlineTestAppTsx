@@ -33,23 +33,29 @@ function App() {
     children: PropTypes.object,
   };
 
-
   /** Returns control back to home with the help of state. */
   function navigateToHome() {
     setRegistrationData(undefined);
     setCanDoExam(false);
   }
-  
+
   const registrationPassThruProps = { setCanDoExam, setRegistrationData };
   return (
     <div>
-      <div className="onlineTestAppHeader" data-testid="testAppHeader">Online Test App</div>
+      <div className="onlineTestAppHeader" data-testid="testAppHeader">
+        Online Test App
+      </div>
       <Router>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route
               path="/"
-              element={<Registration {...registrationPassThruProps} data-testid="registration"/>}
+              element={
+                <Registration
+                  {...registrationPassThruProps}
+                  data-testid="registration"
+                />
+              }
             />
             <Route
               path="/exam"

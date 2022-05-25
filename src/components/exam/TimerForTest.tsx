@@ -5,12 +5,12 @@ import "../../Common.scss";
  * This is the timer that runs according to the test time limit.
  * It starts blinking in Red if less than a minute remains.
  * A callback function is called when timelimit lapses for ending the test session.
- * @param props 
- * @returns 
+ * @param props
+ * @returns
  */
 function TimerForTest(props: any) {
-  const {timeLeft} = props;
-  let minutesLeft = Math.floor(timeLeft/ 60);
+  const { timeLeft } = props;
+  let minutesLeft = Math.floor(timeLeft / 60);
   let secondsLeft = timeLeft % 60;
   let className = "timer";
 
@@ -35,7 +35,7 @@ function TimerForTest(props: any) {
 }
 
 TimerForTest.propTypes = {
-  timeLeft: PropTypes.number
+  timeLeft: PropTypes.number,
 };
 
 export default TimerForTest;

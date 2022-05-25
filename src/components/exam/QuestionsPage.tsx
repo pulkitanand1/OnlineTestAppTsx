@@ -1,11 +1,9 @@
 import TimerForTest from "./TimerForTest";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
-import FancyButton from "../common/FancyButton";
 import * as dp from "../../DataProvider";
 import * as dm from "../../DataManipulation";
 import "../../Common.scss";
-import React from "react";
 import Question from "./Question";
 import { AnswerMatrixItem } from "../../dataTypes/AnswerMatrixItem";
 import { QuestionDataItem } from "../../dataTypes/QuestionDataItem";
@@ -26,6 +24,9 @@ function QuestionsPage(props: any) {
   const [timeLeft, setTimeLeft] = useState(examTimeLimit);
   const [isExamOver, setIsExamOver] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [evaulationData, setEvaluationData] = useState(
+    [] as dm.EvaluationItem[]
+  );
 
   setTimeout(() => {
     if (timeLeft === 0) {
@@ -34,8 +35,6 @@ function QuestionsPage(props: any) {
       setTimeLeft(timeLeft - 1);
     }
   }, 1000);
-
-  const ref = React.createRef<HTMLAnchorElement>();
 
   const currentQuestion: QuestionDataItem = questions[currentQuestionIndex];
 
@@ -126,25 +125,11 @@ function QuestionsPage(props: any) {
   };
 
   /**
-   * Handles Download button click.
-   */
-  const handleDownloadResult = () => {
-    const url = dm.finishAndEvaluateTest(
-      answerMatrix,
-      questions,
-      registrationData
-    );
-    const hiddenDownloadButton = ref.current;
-    if (hiddenDownloadButton) {
-      hiddenDownloadButton.href = url;
-      hiddenDownloadButton.click();
-    }
-  };
-
-  /**
    * Performs neccessary state changes to end test session in both auto and manual submission.
    */
   const finishTest = () => {
+    const evalData = dm.finishAndEvaluateTest(answerMatrix, questions);
+    setEvaluationData(evalData);
     setIsDialogOpen(false); // To automatically close dialog when test ends.
     setIsExamOver(true);
     setTimeLeft(0);
@@ -210,9 +195,8 @@ function QuestionsPage(props: any) {
   );
 
   const examOverProps = {
-    attemptedQuestionsCount,
-    totalQuestions,
-    handleDownloadResult,
+    evaulationData,
+    registrationData,
     navigateAfterTestEnd,
   };
 

@@ -12,7 +12,7 @@ function Information(props: any) {
   const [examLevel, setExamlLevel] = useState(levels[0]);
   const [isChecked, setIsChecked] = useState(false);
 
-  /** Handles the level selection event. 
+  /** Handles the level selection event.
    */
   function handleLevelSelection(e: any) {
     let eLevel = levels.find((l) => l.id === parseInt(e.target.value));

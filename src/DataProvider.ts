@@ -14,7 +14,7 @@ export const getRules = () => rules;
 
 /**
  * Returns an array of exam questions for a level.
- * @param level 
+ * @param level
  * @returns all the exam questions for selected level.
  */
 export const getExamData = (level: number): QuestionDataItem[] => {

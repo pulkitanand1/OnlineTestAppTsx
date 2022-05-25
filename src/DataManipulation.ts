@@ -1,8 +1,9 @@
 import * as dp from "./DataProvider";
 import { AnswerMatrixItem } from "./dataTypes/AnswerMatrixItem";
+import { CorrectAnswerDataItem } from "./dataTypes/CorrectAnswerDataItem";
 import { QuestionDataItem } from "./dataTypes/QuestionDataItem";
 
-interface EvaluationItem {
+export interface EvaluationItem {
   level: number;
   questionTest: string;
   answeredCorrectly: boolean;
@@ -12,22 +13,21 @@ interface EvaluationItem {
 
 /**
  * Evaluates Answer Matrix (user responses) and returns the final test result
- * @param answerMatrix 
- * @param questionsData 
- * @param registrationData 
- * @returns 
+ * @param answerMatrix
+ * @param questionsData
+ * @returns
  */
 export const finishAndEvaluateTest = (
   answerMatrix: AnswerMatrixItem[],
-  questionsData: QuestionDataItem[],
-  registrationData: any
+  questionsData: QuestionDataItem[]
 ) => {
   const answersData = dp.getAnswersData();
   let answersEvaluatonData = answerMatrix.map((am) => {
     // Fetching the correct answer Ids
     let correctAnswerIds: number[] = getCorrectAnswerForQuestion(
       am.level,
-      am.questionId
+      am.questionId,
+      answersData
     );
 
     let qText = questionsData.find(
@@ -45,7 +45,8 @@ export const finishAndEvaluateTest = (
     let userAnswers: string[] = getAnswersTextForQuestion(
       am.level,
       am.questionId,
-      am.selectedAnswerIds
+      am.selectedAnswerIds,
+      questionsData
     );
 
     if (userAnswers) evaluationItem.userAnswers = userAnswers;
@@ -63,7 +64,8 @@ export const finishAndEvaluateTest = (
           let correctAnswers = getAnswersTextForQuestion(
             am.level,
             am.questionId,
-            correctAnswerIds
+            correctAnswerIds,
+            questionsData
           );
           evaluationItem.correctAnswers = correctAnswers;
         } else {
@@ -77,6 +79,19 @@ export const finishAndEvaluateTest = (
     return evaluationItem;
   });
 
+  return answersEvaluatonData;
+};
+
+/**
+ * To generate a download link for Json File.
+ * @param registrationData
+ * @param answersEvaluatonData
+ * @returns
+ */
+export const generateJSONDownloadUrl = (
+  registrationData: any,
+  answersEvaluatonData: EvaluationItem[]
+) => {
   const finalData = {
     registrationData: registrationData,
     answersData: answersEvaluatonData,
@@ -86,41 +101,45 @@ export const finishAndEvaluateTest = (
     new Blob([json], { type: "application/json" })
   );
   return url;
-
-  /**
-   * Returns the correct answer Ids for a questionId and level.
-   * @param level 
-   * @param questionId 
-   * @returns 
-   */
-  function getCorrectAnswerForQuestion(
-    level: number,
-    questionId: number
-  ): number[] {
-    let answerKeyItem = answersData.find(
-      (ad) => ad.level === level && ad.questionId === questionId
-    );
-    return answerKeyItem ? answerKeyItem.correctAnswerIds : [];
-  }
-
-  /**
-   * Returns Answer test for Question 
-   * @param level 
-   * @param questionId 
-   * @param answerIds 
-   * @returns 
-   */
-  function getAnswersTextForQuestion(
-    level: number,
-    questionId: number,
-    answerIds: number[]
-  ): string[] {
-    let question = questionsData.find(
-      (ad) => ad.level === level && ad.questionId === questionId
-    );
-    let answers = question?.answers
-      .filter((sa) => answerIds.includes(sa.answerId))
-      .map((sa) => sa.answerText);
-    return answers ? answers : [];
-  }
 };
+
+/**
+ * Returns the correct answer Ids for a questionId and level.
+ * @param level
+ * @param questionId
+ * @param answersData
+ * @returns
+ */
+function getCorrectAnswerForQuestion(
+  level: number,
+  questionId: number,
+  answersData: CorrectAnswerDataItem[]
+): number[] {
+  let answerKeyItem = answersData.find(
+    (ad) => ad.level === level && ad.questionId === questionId
+  );
+  return answerKeyItem ? answerKeyItem.correctAnswerIds : [];
+}
+
+/**
+ * Returns Answer test for Question
+ * @param level
+ * @param questionId
+ * @param answerIds
+ * @param questionsData
+ * @returns
+ */
+function getAnswersTextForQuestion(
+  level: number,
+  questionId: number,
+  answerIds: number[],
+  questionsData: QuestionDataItem[]
+): string[] {
+  let question = questionsData.find(
+    (ad) => ad.level === level && ad.questionId === questionId
+  );
+  let answers = question?.answers
+    .filter((sa) => answerIds.includes(sa.answerId))
+    .map((sa) => sa.answerText);
+  return answers ? answers : [];
+}

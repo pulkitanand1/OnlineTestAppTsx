@@ -19,17 +19,23 @@ export default function AlertDialog(props: AlertDialogProps) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Submit"}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Submit"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Do you want to end the test and submit?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleCloseWithResponse(true)} variant="contained">Yes</Button>
-          <Button onClick={() => handleCloseWithResponse(false)} variant="outlined">
+          <Button
+            onClick={() => handleCloseWithResponse(true)}
+            variant="contained"
+          >
+            Yes
+          </Button>
+          <Button
+            onClick={() => handleCloseWithResponse(false)}
+            variant="outlined"
+          >
             No
           </Button>
         </DialogActions>

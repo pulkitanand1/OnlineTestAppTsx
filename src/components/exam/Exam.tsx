@@ -12,8 +12,8 @@ function Exam(props: any) {
 
   /**
    * The callback that records seleted level and its time limit for the test.
-   * @param selectedLevel 
-   * @param timeLimit 
+   * @param selectedLevel
+   * @param timeLimit
    */
   const acceptRules = (selectedLevel: number, timeLimit: number) => {
     if (rulesAccepted === false) {
