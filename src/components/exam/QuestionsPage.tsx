@@ -11,6 +11,7 @@ import { AnswerMatrixItem } from "../../dataTypes/AnswerMatrixItem";
 import { QuestionDataItem } from "../../dataTypes/QuestionDataItem";
 import ButtonPanel from "./ButtonsPanel";
 import ExamOverPage from "./ExamOverPage";
+import AlertDialog from "../common/AlertDialog";
 
 function QuestionsPage(props: any) {
   const {
@@ -24,6 +25,7 @@ function QuestionsPage(props: any) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(examTimeLimit);
   const [isExamOver, setIsExamOver] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   setTimeout(() => {
     if (timeLeft === 0) {
@@ -120,12 +122,7 @@ function QuestionsPage(props: any) {
    * Handles Submit button click.
    */
   const handleFinishTest = () => {
-    let executeResult = window.confirm(
-      "Are you sure you want to submit this test?"
-    );
-    if (executeResult) {
-      finishTest();
-    }
+    setIsDialogOpen(true);
   };
 
   /**
@@ -148,6 +145,7 @@ function QuestionsPage(props: any) {
    * Performs neccessary state changes to end test session in both auto and manual submission.
    */
   const finishTest = () => {
+    setIsDialogOpen(false); // To automatically close dialog when test ends.
     setIsExamOver(true);
     setTimeLeft(0);
   };
@@ -166,18 +164,30 @@ function QuestionsPage(props: any) {
     totalQuestions,
     handleFinishTest,
   };
-  
+
+  const handleCloseWithResponse = (resp: boolean) => {
+    setIsDialogOpen(false);
+    if (resp) {
+      finishTest();
+    }
+  };
+
+  const alertDialogPrompt = { isDialogOpen, handleCloseWithResponse };
+
   /**
    * Test component contains Question components and button panel.
    * This is where question answers are displayed along with the timer.
    */
   const testComponent = (
     <div data-testid="testComponent">
+      <AlertDialog {...alertDialogPrompt} />
       <div className="commonFlexPanel">
         <div className="panLeft">
-          <h1 className="noPaddingMargin">
-            Welcome {registrationData.fName} {registrationData.lName}
-          </h1>
+          {registrationData && (
+            <h1 className="noPaddingMargin">
+              Welcome {registrationData.fName} {registrationData.lName}
+            </h1>
+          )}
         </div>
         <div className="panRight">
           <TimerForTest timeLeft={timeLeft} />
@@ -199,15 +209,14 @@ function QuestionsPage(props: any) {
     </div>
   );
 
-  const examOverProps = 
-  {
+  const examOverProps = {
     attemptedQuestionsCount,
     totalQuestions,
     handleDownloadResult,
     navigateAfterTestEnd,
-  }
+  };
 
-  return isExamOver ? <ExamOverPage {...examOverProps}/> : testComponent;
+  return isExamOver ? <ExamOverPage {...examOverProps} /> : testComponent;
 }
 
 QuestionsPage.propTypes = {
