@@ -1,14 +1,5 @@
 $common-box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);
 
-button {
-  box-shadow: $common-box-shadow;
-  border-radius: 4px;
-}
-button:active:enabled {
-  box-shadow: none;
-  color: yellow;
-}
-
 h1.noPaddingMargin {
   padding: 0px;
   margin: 0px;

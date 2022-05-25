@@ -1,10 +1,16 @@
-import PropTypes from "prop-types";
 import "../../Common.scss";
 import { AnswerItem } from "../../dataTypes/AnswerItem";
 import { AnswerMatrixItem } from "../../dataTypes/AnswerMatrixItem";
+import { QuestionDataItem } from "../../dataTypes/QuestionDataItem";
+
+interface QuestionProps {
+  currentQuestion: QuestionDataItem;
+  handleUserSelection: (answerId: number, isChecked: boolean) => void;
+  answerMatrix: AnswerMatrixItem[];
+}
 
 /** Returns the question that's rendered */
-function Question(props: any) {
+function Question(props: QuestionProps) {
   const { currentQuestion, handleUserSelection, answerMatrix } = props;
   const questionType = currentQuestion.questionType;
   const answers = currentQuestion.answers;
@@ -13,13 +19,33 @@ function Question(props: any) {
     (am: AnswerMatrixItem) => am.questionId === currentQuestion.questionId
   );
 
+  /**
+   * To check whether the answer Id is selected or not.
+   * @param answerId
+   * @returns
+   */
   function isChecked(answerId: number) {
     let isChecked =
-      answerMatrixItem.selectedAnswerIds.find(
+      answerMatrixItem?.selectedAnswerIds.find(
         (si: number) => si === answerId
       ) !== undefined;
     return isChecked;
   }
+
+  /**
+   * Handle Radio button checked behavior to
+   * simulate togglable radio button.
+   * @param answerId
+   */
+  const handleRadioButtonCheckedEvent = (answerId: number) => {
+    if (answerMatrixItem) {
+      if (answerMatrixItem.selectedAnswerIds.find((sai) => sai === answerId)) {
+        handleUserSelection(answerId, false);
+      } else {
+        handleUserSelection(answerId, true);
+      }
+    }
+  };
 
   return (
     <div className="questionPanel">
@@ -40,8 +66,17 @@ function Question(props: any) {
                 className="inputControl"
                 name={currentQuestion.level + "-" + currentQuestion.questionId}
                 type={questionType === "m" ? "checkbox" : "radio"}
-                defaultChecked={isChecked(ans.answerId)}
-                onChange={(e) => handleUserSelection(e, ans.answerId)}
+                checked={isChecked(ans.answerId)}
+                onChange={(e) =>
+                  questionType === "m"
+                    ? handleUserSelection(ans.answerId, e.target.checked)
+                    : undefined
+                }
+                onClick={(e) =>
+                  questionType === "s"
+                    ? handleRadioButtonCheckedEvent(ans.answerId)
+                    : undefined
+                }
               />
               {ans.answerText}
             </h2>
@@ -51,10 +86,5 @@ function Question(props: any) {
     </div>
   );
 }
-Question.propTypes = {
-  currentQuestion: PropTypes.object,
-  handleUserSelection: PropTypes.func,
-  answerMatrix: PropTypes.array,
-};
 
 export default Question;

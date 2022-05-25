@@ -1,19 +1,27 @@
 $buttonHeight: 40px;
 $buttonWidth: 100px;
+$common-box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);
 
-@mixin fancyButton($disabled: false, $btnColor: Black) {
+@mixin fancyButton($btnColor: Black) {
   color: white;
   font-weight: bolder;
   border: none;
   width: $buttonWidth;
   height: $buttonHeight;
   font-size: 15px;
-  @if ($disabled) {
+  &:disabled {
     background-color: lightgray;
     cursor: not-allowed;
-  } @else {
+  }
+  &:not([disabled]) {
     background-color: $btnColor;
     cursor: pointer;
+  }
+  box-shadow: $common-box-shadow;
+  border-radius: 4px;
+  &:active {
+    box-shadow: none;
+    color: yellow;
   }
 }
 
@@ -27,13 +35,12 @@ button.blackButton {
   @include fancyButton();
 }
 
-button:disabled.blackButton {
-  @include fancyButton($disabled: true);
+button.greenButton {
+  @include fancyButton($btnColor: rgb(12, 117, 12));
 }
 
-button.greenButton {
-  @include fancyButton($disabled: false, $btnColor: rgb(12, 117, 12));
-}
-button:disabled.greenButton {
-  @include fancyButton($disabled: true);
+button.blackButtonSqr {
+  @include fancyButton();
+  width: 40px;
+  height: 40px;
 }

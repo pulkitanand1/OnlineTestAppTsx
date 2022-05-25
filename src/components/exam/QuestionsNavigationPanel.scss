@@ -1,0 +1,43 @@
+div.questionsNavPanel {
+  margin-top: 1vh;
+}
+
+button.qnav {
+  width: 40px;
+  height: 40px;
+  margin: 0px 2px 0px 2px;
+  border: 1px solid black;
+  background-color: red;
+  color: black;
+  &:hover {
+    background-color: gold;
+    color: black;
+  }
+}
+
+button.qnav.current {
+  width: 50px;
+  height: 50px;
+  .attempted {
+    background-color: green;
+    border-radius: 4px;
+  }
+  &:hover {
+    background-color: gold;
+    color: black;
+  }
+}
+
+button.qnav.attempted {
+  background-color: green;
+  color: white;
+  &:hover {
+    background-color: gold;
+    color: black;
+  }
+}
+
+button.qnav:active {
+  border: 1px dotted white;
+  font-weight: bold;
+}

@@ -10,6 +10,7 @@ import { QuestionDataItem } from "../../dataTypes/QuestionDataItem";
 import ButtonPanel from "./ButtonsPanel";
 import ExamOverPage from "./ExamOverPage";
 import AlertDialog from "../common/AlertDialog";
+import QuestionsNavigationPanel from "./QuestionsNavigationPanel";
 
 function QuestionsPage(props: any) {
   const {
@@ -28,18 +29,19 @@ function QuestionsPage(props: any) {
     [] as dm.EvaluationItem[]
   );
 
-  setTimeout(() => {
-    if (timeLeft === 0) {
-      setIsExamOver(true);
-    } else {
-      setTimeLeft(timeLeft - 1);
-    }
-  }, 1000);
+  // setTimeout(() => {
+  //   if (timeLeft === 0) {
+  //     setIsExamOver(true);
+  //   } else {
+  //     setTimeLeft(timeLeft - 1);
+  //   }
+  // }, 1000);
 
   const currentQuestion: QuestionDataItem = questions[currentQuestionIndex];
 
-  let blankAnswersMatrix = questions.map((q) => {
+  let blankAnswersMatrix = questions.map((q, i) => {
     return {
+      index: i,
       level: selectedLevel,
       questionId: q.questionId,
       questionType: q.questionType,
@@ -63,30 +65,36 @@ function QuestionsPage(props: any) {
     answerId: number,
     isChecked: boolean
   ) {
-    let answerItem = answerMatrix.find(
+    let answerMatrixItem = answerMatrix.find(
       (am: AnswerMatrixItem) => am.questionId === questionId
     );
-    if (answerItem) {
-      if (answerItem.questionType === "s") {
-        answerItem.selectedAnswerIds = [answerId];
-      } else if (answerItem.questionType === "m") {
+    if (answerMatrixItem) {
+      if (answerMatrixItem.questionType === "s") {
+        if (isChecked) {
+          answerMatrixItem.selectedAnswerIds = [answerId];
+        } else {
+          answerMatrixItem.selectedAnswerIds = [];
+        }
+      } else if (answerMatrixItem.questionType === "m") {
         if (isChecked === false) {
-          answerItem.selectedAnswerIds = answerItem.selectedAnswerIds.filter(
-            (sid) => sid !== answerId
-          );
+          answerMatrixItem.selectedAnswerIds =
+            answerMatrixItem.selectedAnswerIds.filter(
+              (sid) => sid !== answerId
+            );
         } else {
           if (
-            answerItem.selectedAnswerIds.find((sid) => sid === answerId) ===
-            undefined
+            answerMatrixItem.selectedAnswerIds.find(
+              (sid) => sid === answerId
+            ) === undefined
           ) {
-            answerItem.selectedAnswerIds = [
-              ...answerItem.selectedAnswerIds,
+            answerMatrixItem.selectedAnswerIds = [
+              ...answerMatrixItem.selectedAnswerIds,
               answerId,
             ];
           }
         }
       }
-      setAnswerMatrix(answerMatrix);
+      setAnswerMatrix([...answerMatrix]);
     }
   }
 
@@ -95,8 +103,8 @@ function QuestionsPage(props: any) {
    * @param e
    * @param answerId
    */
-  const handleUserSelection = (e: any, answerId: number) => {
-    updateAnswersMatrix(currentQuestion.questionId, answerId, e.target.checked);
+  const handleUserSelection = (answerId: number, isChecked: boolean) => {
+    updateAnswersMatrix(currentQuestion.questionId, answerId, isChecked);
   };
 
   /**
@@ -157,7 +165,16 @@ function QuestionsPage(props: any) {
     }
   };
 
-  const alertDialogPrompt = { isDialogOpen, handleCloseWithResponse };
+  const alertDialogPromptProps = { isDialogOpen, handleCloseWithResponse };
+
+  const questionsNavPanelProps = {
+    currentQuestion: currentQuestionIndex + 1,
+    totalQuestions: totalQuestions,
+    attemptedQArray: answerMatrix
+      .filter((ai) => ai.selectedAnswerIds?.length > 0)
+      .map((v) => v.index + 1),
+    handleQuestionNavigation: (idx: number) => setCurrentQuestionIndex(idx),
+  };
 
   /**
    * Test component contains Question components and button panel.
@@ -165,7 +182,7 @@ function QuestionsPage(props: any) {
    */
   const testComponent = (
     <div data-testid="testComponent">
-      <AlertDialog {...alertDialogPrompt} />
+      <AlertDialog {...alertDialogPromptProps} />
       <div className="commonFlexPanel">
         <div className="panLeft">
           {registrationData && (
@@ -178,7 +195,7 @@ function QuestionsPage(props: any) {
           <TimerForTest timeLeft={timeLeft} />
         </div>
       </div>
-
+      <QuestionsNavigationPanel {...questionsNavPanelProps} />
       <div className="questionStatusPanel">
         <h2 className="leftHeading">
           Question {currentQuestionIndex + 1} of {totalQuestions}
