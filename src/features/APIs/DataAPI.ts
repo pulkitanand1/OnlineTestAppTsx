@@ -1,16 +1,17 @@
-import rules from "./data/rules.json";
-import questionsData from "./data/questionsData.json";
-import levels from "./data/levels.json";
-import answersData from "./data/correctAnswersData.json";
-import { Level } from "./dataTypes/Level";
-import { QuestionDataItem } from "./dataTypes/QuestionDataItem";
-import { CorrectAnswerDataItem } from "./dataTypes/CorrectAnswerDataItem";
+import rules from "./mockData/rules.json";
+import questionsData from "./mockData/questionsData.json";
+import levels from "./mockData/levels.json";
+import answersData from "./mockData/correctAnswersData.json";
+import { QuestionDataItem } from "../../dataTypes/QuestionDataItem";
+import { Level } from "../../dataTypes/Level";
+import { CorrectAnswerDataItem } from "../../dataTypes/CorrectAnswerDataItem";
+import { RuleItem } from "../../dataTypes/RuleItem";
 
 /**
  * Loads the Rules.json into an array
  * @returns and array of rules.
  */
-export const getRules = () => rules;
+export const getRules = (): RuleItem[] => rules;
 
 /**
  * Returns an array of exam questions for a level.
@@ -30,5 +31,5 @@ export function getLevels(): Level[] {
 }
 
 /** Returns the array of answers for all questions. */
-export const getAnswersData = (): CorrectAnswerDataItem[] =>
+export const getAnswersDataByLevel = (level: number): CorrectAnswerDataItem[] =>
   answersData as CorrectAnswerDataItem[];

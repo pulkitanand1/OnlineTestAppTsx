@@ -1,8 +1,7 @@
 import TimerForTest from "./TimerForTest";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import * as dp from "../../DataProvider";
-import * as dm from "../../DataManipulation";
+import * as dm from "../../features/dataManipulation/DataManipulation";
 import "../../Common.scss";
 import Question from "./Question";
 import { AnswerMatrixItem } from "../../dataTypes/AnswerMatrixItem";
@@ -11,6 +10,10 @@ import ButtonPanel from "./ButtonsPanel";
 import ExamOverPage from "./ExamOverPage";
 import AlertDialog from "../common/AlertDialog";
 import QuestionsNavigationPanel from "./QuestionsNavigationPanel";
+import { useAppDispatch } from "../../app/hooks";
+import { useSelector } from "react-redux";
+import { selectLevelWiseQuestionsData } from "../../features/exam/levelWiseQuestionsSlice";
+import { updateLevelWiseQuestionData } from "../../features/exam/examDataProvider";
 
 function QuestionsPage(props: any) {
   const {
@@ -20,7 +23,13 @@ function QuestionsPage(props: any) {
     registrationData,
   } = props;
 
-  const questions = dp.getExamData(selectedLevel);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    updateLevelWiseQuestionData(dispatch, selectedLevel);
+  }, []);
+
+  const questions = useSelector(selectLevelWiseQuestionsData);
+
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(examTimeLimit);
   const [isExamOver, setIsExamOver] = useState(false);
@@ -205,8 +214,12 @@ function QuestionsPage(props: any) {
         </h2>
       </div>
       <div>
-        <Question {...passThruProps} />
-        <ButtonPanel {...buttonsPanelProps} />
+        {currentQuestion && (
+          <>
+            <Question {...passThruProps} />
+            <ButtonPanel {...buttonsPanelProps} />
+          </>
+        )}
       </div>
     </div>
   );

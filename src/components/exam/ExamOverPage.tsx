@@ -1,7 +1,7 @@
 import React from "react";
-import { EvaluationItem } from "../../DataManipulation";
+import { EvaluationItem } from "../../features/dataManipulation/DataManipulation";
 import FancyButton from "../common/FancyButton";
-import * as dm from "../../DataManipulation";
+import * as dm from "../../features/dataManipulation/DataManipulation";
 
 /**
  * This is displayed when the test ends either after timeout or manual submission.

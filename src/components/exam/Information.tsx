@@ -1,16 +1,34 @@
 import "./Information.scss";
 import "../../Common.scss";
-import * as dp from "../../DataProvider";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectLevelsData } from "../../features/exam/levelDataSlice";
+import { selectRulesData } from "../../features/exam/rulesDataSlice";
+import {
+  updateLevelsData,
+  updateRulesData,
+} from "../../features/exam/examDataProvider";
+import { Level } from "../../dataTypes/Level";
 
 /** Returns the Exam Information Component  */
 function Information(props: any) {
   const { acceptRules } = props;
-  const rules = dp.getRules();
-  const levels = dp.getLevels();
-  const [examLevel, setExamlLevel] = useState(levels[0]);
+  const levels = useAppSelector(selectLevelsData);
+  const rules = useAppSelector(selectRulesData);
+  const dispatch = useAppDispatch();
+  const [examLevel, setExamlLevel] = useState({} as Level);
   const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    updateRulesData(dispatch);
+    updateLevelsData(dispatch);
+    setExamlLevel(levels[0]);
+  }, []);
+
+  useEffect(() => {
+    setExamlLevel(levels[0]);
+  }, [levels]);
 
   /** Handles the level selection event.
    */

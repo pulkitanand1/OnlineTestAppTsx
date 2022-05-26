@@ -1,7 +1,7 @@
-import * as dp from "./DataProvider";
-import { AnswerMatrixItem } from "./dataTypes/AnswerMatrixItem";
-import { CorrectAnswerDataItem } from "./dataTypes/CorrectAnswerDataItem";
-import { QuestionDataItem } from "./dataTypes/QuestionDataItem";
+import { AnswerMatrixItem } from "../../dataTypes/AnswerMatrixItem";
+import { CorrectAnswerDataItem } from "../../dataTypes/CorrectAnswerDataItem";
+import { QuestionDataItem } from "../../dataTypes/QuestionDataItem";
+import * as dp from "../APIs/DataAPI";
 
 export interface EvaluationItem {
   level: number;
@@ -21,7 +21,7 @@ export const finishAndEvaluateTest = (
   answerMatrix: AnswerMatrixItem[],
   questionsData: QuestionDataItem[]
 ) => {
-  const answersData = dp.getAnswersData();
+  const answersData = dp.getAnswersDataByLevel(answerMatrix[0].level);
   let answersEvaluatonData = answerMatrix.map((am) => {
     // Fetching the correct answer Ids
     let correctAnswerIds: number[] = getCorrectAnswerForQuestion(
