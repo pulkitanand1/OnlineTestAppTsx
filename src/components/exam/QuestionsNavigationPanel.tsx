@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./QuestionsNavigationPanel.scss";
 
 interface QuestionsNavigationPanelProps {
@@ -21,14 +21,16 @@ const QuestionsNavigationPanel = (props: QuestionsNavigationPanelProps) => {
     attemptedQArray,
     handleQuestionNavigation,
   } = props;
-  const [indexArray] = useState(
-    Array.from({ length: totalQuestions }, (_, i) => i + 1)
-  ); // To avoid recalculations upon render
-
+  
+  const [indexArray, setIndexArray] = useState([] as number[]); 
+  
+  useEffect(() => {
+    setIndexArray(Array.from({ length: totalQuestions }, (_, i) => i + 1));
+  }, [totalQuestions])
   return (
     <div className="questionsNavPanel">
       {indexArray.map((i) => {
-        let isAttempted = attemptedQArray?.find((aqi) => aqi === i);
+        let isAttempted = attemptedQArray.find((aqi) => aqi === i);
         if (currentQuestion === i) {
           return (
             <button

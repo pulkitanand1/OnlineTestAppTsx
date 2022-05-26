@@ -22,13 +22,14 @@ function QuestionsPage(props: any) {
     examTimeLimit,
     registrationData,
   } = props;
-
+  const questions = useSelector(selectLevelWiseQuestionsData);
   const dispatch = useAppDispatch();
   useEffect(() => {
+    console.log("er");
     updateLevelWiseQuestionData(dispatch, selectedLevel);
+    setCurrentQuestionIndex(0);
   }, []);
 
-  const questions = useSelector(selectLevelWiseQuestionsData);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(examTimeLimit);
@@ -48,18 +49,21 @@ function QuestionsPage(props: any) {
 
   const currentQuestion: QuestionDataItem = questions[currentQuestionIndex];
 
-  let blankAnswersMatrix = questions.map((q, i) => {
-    return {
-      index: i,
-      level: selectedLevel,
-      questionId: q.questionId,
-      questionType: q.questionType,
-      selectedAnswerIds: [],
-    } as AnswerMatrixItem;
-  });
-
-  const [answerMatrix, setAnswerMatrix] = useState(blankAnswersMatrix);
+  let blankAnswersMatrix = [] as AnswerMatrixItem[];
   const totalQuestions = questions.length;
+  const [answerMatrix, setAnswerMatrix] = useState(blankAnswersMatrix);
+
+  useEffect(() => {
+    setAnswerMatrix(questions.map((q, i) => {
+      return {
+        index: i,
+        level: selectedLevel,
+        questionId: q.questionId,
+        questionType: q.questionType,
+        selectedAnswerIds: [],
+      } as AnswerMatrixItem;
+    }));
+  }, [totalQuestions])
 
   /**
    * Updates the answers Matrix based on user Input.

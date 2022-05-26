@@ -19,7 +19,7 @@ $common-box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);
   }
   box-shadow: $common-box-shadow;
   border-radius: 4px;
-  &:active {
+  &:active:enabled {
     box-shadow: none;
     color: yellow;
   }

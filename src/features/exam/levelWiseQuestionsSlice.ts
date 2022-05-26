@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { QuestionDataItem } from "../../dataTypes/QuestionDataItem";
-const intialValue = [] as QuestionDataItem[];
 
 const levelWiseQuestionsSlice = createSlice({
   name: "levelWiseQuestionsSlice",
   initialState: {
-    value: intialValue,
+    value:  [] as QuestionDataItem[],
   },
   reducers: {
     setLevelWiseQuestionsData: (state, action) => {
