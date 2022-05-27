@@ -32,12 +32,7 @@ function Exam(props: any) {
   };
 
   /** Exam information component which is rendered when user accepts the rules */
-  const examInformation = (
-    <Information
-      acceptRules={acceptRules}
-      registrationData={registrationData}
-    />
-  );
+  const examInformation = <Information acceptRules={acceptRules} />;
 
   const passThruExamProps = {
     selectedLevel,

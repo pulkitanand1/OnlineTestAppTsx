@@ -44,11 +44,6 @@ h1.noPaddingMargin {
   }
 }
 
-.commonFlexPanel {
-  display: flex;
-  direction: row;
-}
-
 .questionPanel {
   background: white;
   border-radius: 2vw;
@@ -109,6 +104,10 @@ h1.noPaddingMargin {
   flex-direction: row;
 }
 
+.commonFlexPanel {
+  display: flex;
+  direction: row;
+}
 .panLeft {
   display: flex;
   justify-content: flex-start;
@@ -119,5 +118,24 @@ h1.noPaddingMargin {
   display: flex;
   justify-content: flex-end;
   width: 50%;
+  padding-right: 2vw;
+}
+
+.panLeft80 {
+  display: flex;
+  justify-content: flex-start;
+  width: 80%;
+}
+
+.panRight20 {
+  display: flex;
+  justify-content: flex-end;
+  width: 20%;
+}
+
+.extremeRight {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
   padding-right: 2vw;
 }

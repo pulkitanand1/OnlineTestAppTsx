@@ -7,11 +7,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 interface AlertDialogProps {
   isDialogOpen: boolean;
+  title: string;
+  dialogContent: string;
   handleCloseWithResponse: (resp: boolean) => void;
 }
 
 export default function AlertDialog(props: AlertDialogProps) {
-  const { isDialogOpen, handleCloseWithResponse } = props;
+  const { isDialogOpen, title, dialogContent, handleCloseWithResponse } = props;
   return (
     <div>
       <Dialog
@@ -19,10 +21,10 @@ export default function AlertDialog(props: AlertDialogProps) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Submit"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Do you want to end the test and submit?
+            {dialogContent}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

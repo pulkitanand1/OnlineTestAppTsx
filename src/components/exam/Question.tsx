@@ -72,7 +72,7 @@ function Question(props: QuestionProps) {
                     ? handleUserSelection(ans.answerId, e.target.checked)
                     : undefined
                 }
-                onClick={(e) =>
+                onClick={() =>
                   questionType === "s"
                     ? handleRadioButtonCheckedEvent(ans.answerId)
                     : undefined

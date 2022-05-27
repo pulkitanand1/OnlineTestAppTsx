@@ -178,7 +178,7 @@ function QuestionsPage(props: any) {
     }
   };
 
-  const alertDialogPromptProps = { isDialogOpen, handleCloseWithResponse };
+  const alertDialogPromptProps = { isDialogOpen, title: "Submit", dialogContent: "Do you want to end the test and submit?", handleCloseWithResponse };
 
   const questionsNavPanelProps = {
     currentQuestion: currentQuestionIndex + 1,
@@ -197,18 +197,14 @@ function QuestionsPage(props: any) {
     <div data-testid="testComponent">
       <AlertDialog {...alertDialogPromptProps} />
       <div className="commonFlexPanel">
-        <div className="panLeft">
-          {registrationData && (
-            <h1 className="noPaddingMargin">
-              Welcome {registrationData.fName} {registrationData.lName}
-            </h1>
-          )}
+        <div className="panLeft80">
+          <QuestionsNavigationPanel {...questionsNavPanelProps} />
         </div>
-        <div className="panRight">
+        <div className="panRight20">
           <TimerForTest timeLeft={timeLeft} />
         </div>
       </div>
-      <QuestionsNavigationPanel {...questionsNavPanelProps} />
+
       <div className="questionStatusPanel">
         <h2 className="leftHeading">
           Question {currentQuestionIndex + 1} of {totalQuestions}

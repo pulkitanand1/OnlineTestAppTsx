@@ -13,12 +13,11 @@ import RegistrationData from "../../dataTypes/RegistrationData";
 
 interface InformationProps {
   acceptRules: (selectedLevel: number, timeLimit: number) => void;
-  registrationData: RegistrationData;
 }
 
 /** Returns the Exam Information Component  */
 function Information(props: InformationProps) {
-  const { acceptRules, registrationData } = props;
+  const { acceptRules } = props;
   const levels = useAppSelector(selectLevelsData);
   const rules = useAppSelector(selectRulesData);
   const dispatch = useAppDispatch();

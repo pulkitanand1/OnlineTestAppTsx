@@ -24,17 +24,17 @@ const ButtonPanel = (props: buttonPanelProps) => {
       <div className="panLeft">
         <FancyButton
           buttonText="Previous Question"
-          onClick={handleGoToPreviousQuestion}
+          onClickAction={handleGoToPreviousQuestion}
           isDisabled={currentQuestionIndex === 0}
         />
         <FancyButton
           buttonText="Next Question"
-          onClick={handleGoToNextQuestion}
+          onClickAction={handleGoToNextQuestion}
           isDisabled={currentQuestionIndex === totalQuestions - 1}
         />
       </div>
       <div className="panRight">
-        <FancyButton buttonText="Submit" onClick={handleFinishTest} />
+        <FancyButton buttonText="Submit" onClickAction={handleFinishTest} />
       </div>
     </div>
   );

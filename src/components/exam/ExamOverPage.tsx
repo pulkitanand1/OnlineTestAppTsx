@@ -59,10 +59,10 @@ const ExamOverPage = (props: ExamOverPageProps) => {
       <div className="commonFlexPanel">
         <FancyButton
           buttonText="Download Result"
-          onClick={handleDownloadResult}
+          onClickAction={handleDownloadResult}
         />
         <a ref={ref} download="testResults.json" hidden={true}></a>
-        <FancyButton buttonText="Exit" onClick={navigateAfterTestEnd} />
+        <FancyButton buttonText="Exit" onClickAction={navigateAfterTestEnd} />
       </div>
     </div>
   );

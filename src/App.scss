@@ -40,3 +40,17 @@ body {
   color: white;
   text-align: center;
 }
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+.userHeader {
+  align-self: flex-start;
+}
+
+.headerFlex {
+  display: flex;
+  flex-direction: row;
+}

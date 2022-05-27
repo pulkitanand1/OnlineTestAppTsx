@@ -8,13 +8,19 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import RegistrationData from "./dataTypes/RegistrationData";
+import FancyButton from "./components/common/FancyButton";
+import AlertDialog from "./components/common/AlertDialog";
 
 /**This is the app component - the very fist component displayed upon render. */
 function App() {
   // Use this value to toggle testing.
   let canDoExamWithoutRegister: boolean = false;
   const [canDoExam, setCanDoExam] = useState(canDoExamWithoutRegister);
-  const [registrationData, setRegistrationData] = useState();
+  const [registrationData, setRegistrationData] = useState(
+    {} as RegistrationData
+  );
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const Registration = lazy(() => import("./components/exam/Registration"));
   const Exam = lazy(() => import("./components/exam/Exam"));
 
@@ -38,12 +44,35 @@ function App() {
     setCanDoExam(false);
   }
 
+  const handleCloseWithResponse = (resp: boolean) => {
+    if(resp){
+      setCanDoExam(false);
+      setRegistrationData({} as RegistrationData);
+    }
+    setIsDialogOpen(false);
+  }
+  const logoutDialogPropmpt = { isDialogOpen, title: "Log", dialogContent: "Are you sure you want to log out?", handleCloseWithResponse };
+
   const registrationPassThruProps = { setCanDoExam, setRegistrationData };
   return (
     <div>
-      <div className="onlineTestAppHeader" data-testid="testAppHeader">
-        Online Test App
+      <AlertDialog {...logoutDialogPropmpt}/>
+      <div className="header">
+        <div className="onlineTestAppHeader" data-testid="testAppHeader">
+          Online Test App
+        </div>
+        <div className="userHeader">
+          {registrationData.fName !== undefined && (
+            <div className="headerFlex">
+              <h2>
+                Welcome, {registrationData.fName} {registrationData.lName}
+              </h2>
+              <FancyButton buttonText={"LogOut"} onClickAction={() => setIsDialogOpen(true)} ></FancyButton>
+            </div>
+          )}
+        </div>
       </div>
+
       <Router>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
@@ -60,7 +89,9 @@ function App() {
               path="/exam"
               element={
                 <ProtectedRoute
-                  canBeRedirected={!canDoExam && registrationData === undefined}
+                  canBeRedirected={
+                    !canDoExam && registrationData.fName === undefined
+                  }
                   redirectPath="/"
                 >
                   <Exam
