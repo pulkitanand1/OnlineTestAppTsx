@@ -20,22 +20,21 @@ function App() {
 
   /** This component controls access to Exam component on the basis of state value canDoExam */
   const ProtectedRoute = (props: any) => {
-    const { canDoExam, redirectPath, children } = props;
-    if (canDoExam === false) {
+    const { canBeRedirected, redirectPath, children } = props;
+    if (canBeRedirected) {
       return <Navigate to={redirectPath} replace />;
     }
     return children;
   };
 
   ProtectedRoute.propTypes = {
-    canDoExam: PropTypes.bool,
+    canBeRedirected: PropTypes.bool,
     redirectPath: PropTypes.string,
     children: PropTypes.object,
   };
 
   /** Returns control back to home with the help of state. */
   function navigateToHome() {
-    setRegistrationData(undefined);
     setCanDoExam(false);
   }
 
@@ -60,7 +59,10 @@ function App() {
             <Route
               path="/exam"
               element={
-                <ProtectedRoute canDoExam={canDoExam} redirectPath="/">
+                <ProtectedRoute
+                  canBeRedirected={!canDoExam && registrationData === undefined}
+                  redirectPath="/"
+                >
                   <Exam
                     navigateAfterTestEnd={navigateToHome}
                     registrationData={registrationData}

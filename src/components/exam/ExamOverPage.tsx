@@ -61,8 +61,8 @@ const ExamOverPage = (props: ExamOverPageProps) => {
           buttonText="Download Result"
           onClick={handleDownloadResult}
         />
-        <FancyButton buttonText="Exit" onClick={navigateAfterTestEnd} />
         <a ref={ref} download="testResults.json" hidden={true}></a>
+        <FancyButton buttonText="Exit" onClick={navigateAfterTestEnd} />
       </div>
     </div>
   );

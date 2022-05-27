@@ -21,12 +21,12 @@ const QuestionsNavigationPanel = (props: QuestionsNavigationPanelProps) => {
     attemptedQArray,
     handleQuestionNavigation,
   } = props;
-  
-  const [indexArray, setIndexArray] = useState([] as number[]); 
-  
+
+  const [indexArray, setIndexArray] = useState([] as number[]);
+
   useEffect(() => {
     setIndexArray(Array.from({ length: totalQuestions }, (_, i) => i + 1));
-  }, [totalQuestions])
+  }, [totalQuestions]);
   return (
     <div className="questionsNavPanel">
       {indexArray.map((i) => {

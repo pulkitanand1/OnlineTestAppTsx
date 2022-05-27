@@ -5,7 +5,7 @@ import { QuestionDataItem } from "../../dataTypes/QuestionDataItem";
 const levelWiseQuestionsSlice = createSlice({
   name: "levelWiseQuestionsSlice",
   initialState: {
-    value:  [] as QuestionDataItem[],
+    value: [] as QuestionDataItem[],
   },
   reducers: {
     setLevelWiseQuestionsData: (state, action) => {

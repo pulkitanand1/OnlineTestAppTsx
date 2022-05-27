@@ -3,6 +3,7 @@ import { Formik, Field, Form } from "formik";
 import FancyButton from "../common/FancyButton";
 import "./Registration.scss";
 import { useNavigate } from "react-router-dom";
+import RegistrationData from "../../dataTypes/RegistrationData";
 
 /**
  * This is the Registration Page component.
@@ -12,12 +13,17 @@ import { useNavigate } from "react-router-dom";
 function Registration(props: any) {
   const { setCanDoExam, setRegistrationData } = props;
   let navigate = useNavigate();
-
+  const initialRegValues = {
+    fName: "",
+    lName: "",
+    email: "",
+    gender: "Male",
+  } as RegistrationData;
   let formikForm = (
     <div className="registrationForm">
       <h1 className="formHeader">Registration</h1>
       <Formik
-        initialValues={{ fName: "", lName: "", email: "", gender: "Male" }}
+        initialValues={initialRegValues}
         onSubmit={(values) => {
           setRegistrationData(values);
           setCanDoExam(true);

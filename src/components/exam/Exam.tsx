@@ -23,14 +23,27 @@ function Exam(props: any) {
     }
   };
 
+  /**
+   * Sets the rules to be not accepted so that information page can be displayed.
+   */
+  const beforeNavigateAfterTestEnd = () => {
+    setRulesAccepted(false);
+    navigateAfterTestEnd();
+  };
+
   /** Exam information component which is rendered when user accepts the rules */
-  const examInformation = <Information acceptRules={acceptRules} />;
+  const examInformation = (
+    <Information
+      acceptRules={acceptRules}
+      registrationData={registrationData}
+    />
+  );
 
   const passThruExamProps = {
     selectedLevel,
     examTimeLimit,
     registrationData,
-    navigateAfterTestEnd,
+    navigateAfterTestEnd: beforeNavigateAfterTestEnd,
   };
   const questionsPage = <QuestionsPage {...passThruExamProps} />;
 
