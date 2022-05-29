@@ -2,6 +2,7 @@ import React from "react";
 import { EvaluationItem } from "../../features/dataManipulation/DataManipulation";
 import FancyButton from "../common/FancyButton";
 import * as dm from "../../features/dataManipulation/DataManipulation";
+import WelcomeUser from "./WelcomUser";
 
 /**
  * This is displayed when the test ends either after timeout or manual submission.
@@ -12,10 +13,16 @@ interface ExamOverPageProps {
   evaulationData: EvaluationItem[];
   registrationData: any;
   navigateAfterTestEnd: () => void;
+  handleLogOut: () => void;
 }
 
 const ExamOverPage = (props: ExamOverPageProps) => {
-  const { evaulationData, navigateAfterTestEnd, registrationData } = props;
+  const {
+    evaulationData,
+    navigateAfterTestEnd,
+    registrationData,
+    handleLogOut,
+  } = props;
   const totalQuestions = evaulationData.length;
   const attemptedQuestions = evaulationData.filter(
     (ed) => ed.userAnswers?.length > 0
@@ -38,8 +45,11 @@ const ExamOverPage = (props: ExamOverPageProps) => {
       hiddenDownloadButton.click();
     }
   };
+
+  const welcomeUserProps = { registrationData, handleLogOut };
   return (
     <div className="center" data-testid="examOver">
+      <WelcomeUser {...welcomeUserProps} />
       <div>
         <h1>Exam is over!</h1>
         <h2>
@@ -56,13 +66,15 @@ const ExamOverPage = (props: ExamOverPageProps) => {
 
         <h2>Please download the result below!</h2>
       </div>
-      <div className="commonFlexPanel">
-        <FancyButton
-          buttonText="Download Result"
-          onClickAction={handleDownloadResult}
-        />
-        <a ref={ref} download="testResults.json" hidden={true}></a>
-        <FancyButton buttonText="Exit" onClickAction={navigateAfterTestEnd} />
+      <div className="centerButtonPanel">
+        <div className="commonFlexPanel">
+          <FancyButton
+            buttonText="Download Result"
+            onClickAction={handleDownloadResult}
+          />
+          <a ref={ref} download="testResults.json" hidden={true}></a>
+          <FancyButton buttonText="Home" onClickAction={navigateAfterTestEnd} />
+        </div>
       </div>
     </div>
   );

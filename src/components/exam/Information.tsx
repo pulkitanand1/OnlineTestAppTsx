@@ -10,14 +10,19 @@ import {
 } from "../../features/exam/examDataProvider";
 import { Level } from "../../dataTypes/Level";
 import RegistrationData from "../../dataTypes/RegistrationData";
+import FancyButton from "../common/FancyButton";
+import AlertDialog from "../common/AlertDialog";
+import WelcomeUser from "./WelcomUser";
 
 interface InformationProps {
   acceptRules: (selectedLevel: number, timeLimit: number) => void;
+  registrationData: RegistrationData;
+  handleLogOut: () => void;
 }
 
 /** Returns the Exam Information Component  */
 function Information(props: InformationProps) {
-  const { acceptRules } = props;
+  const { acceptRules, registrationData, handleLogOut } = props;
   const levels = useAppSelector(selectLevelsData);
   const rules = useAppSelector(selectRulesData);
   const dispatch = useAppDispatch();
@@ -43,9 +48,12 @@ function Information(props: InformationProps) {
     }
   }
 
+  const welcomeUserProps = { registrationData, handleLogOut };
+
   /** Returns rules and regulations along with level selection drop down, and rules acceptance checkbox. */
   const rulesAndRegulations = (
     <div>
+      <WelcomeUser {...welcomeUserProps} />
       <div className="rules">
         <div className="rulesList">
           <h1>Exam Information</h1>

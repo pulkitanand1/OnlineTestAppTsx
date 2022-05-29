@@ -60,7 +60,13 @@ describe("Questions Page should have", () => {
           navigateAfterTestEnd={mocknavigateAfterTestEnd}
           selectedLevel={1}
           examTimeLimit={10}
-          registrationData={{ fName: "TestFname", lName: "TestLname" }}
+          registrationData={{
+            fName: "TestFname",
+            lName: "TestLname",
+            email: "",
+            gender: "",
+          }}
+          handleLogOut={() => undefined}
         />
       );
     });
@@ -80,7 +86,13 @@ describe("Questions Page should have", () => {
             navigateAfterTestEnd={mocknavigateAfterTestEnd}
             selectedLevel={1}
             examTimeLimit={10}
-            registrationData={{ fName: "TestFname", lName: "TestLname" }}
+            registrationData={{
+              fName: "TestFname",
+              lName: "TestLname",
+              email: "",
+              gender: "",
+            }}
+            handleLogOut={() => undefined}
           />
         );
     });
@@ -101,7 +113,13 @@ describe("Questions Page should have", () => {
           navigateAfterTestEnd={mocknavigateAfterTestEnd}
           selectedLevel={1}
           examTimeLimit={10}
-          registrationData={{ fName: "TestFname", lName: "TestLname" }}
+          registrationData={{
+            fName: "TestFname",
+            lName: "TestLname",
+            email: "",
+            gender: "",
+          }}
+          handleLogOut={() => undefined}
         />
       );
     });
@@ -132,7 +150,13 @@ describe("Questions Page should have", () => {
           navigateAfterTestEnd={mocknavigateAfterTestEnd}
           selectedLevel={1}
           examTimeLimit={10}
-          registrationData={{ fName: "TestFname", lName: "TestLname" }}
+          registrationData={{
+            fName: "TestFname",
+            lName: "TestLname",
+            email: "",
+            gender: "",
+          }}
+          handleLogOut={() => undefined}
         />
       );
     });
@@ -172,7 +196,13 @@ describe("Questions Page should have", () => {
           navigateAfterTestEnd={mocknavigateAfterTestEnd}
           selectedLevel={1}
           examTimeLimit={0}
-          registrationData={{ fName: "TestFname", lName: "TestLname" }}
+          registrationData={{
+            fName: "TestFname",
+            lName: "TestLname",
+            email: "",
+            gender: "",
+          }}
+          handleLogOut={() => undefined}
         />
       );
     });

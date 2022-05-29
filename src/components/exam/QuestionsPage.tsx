@@ -14,13 +14,24 @@ import { useAppDispatch } from "../../app/hooks";
 import { useSelector } from "react-redux";
 import { selectLevelWiseQuestionsData } from "../../features/exam/levelWiseQuestionsSlice";
 import { updateLevelWiseQuestionData } from "../../features/exam/examDataProvider";
+import RegistrationData from "../../dataTypes/RegistrationData";
+import WelcomeUser from "./WelcomUser";
 
-function QuestionsPage(props: any) {
+interface QuestionsPageProps {
+  navigateAfterTestEnd: () => void;
+  selectedLevel: number;
+  examTimeLimit: number;
+  registrationData: RegistrationData;
+  handleLogOut: () => void;
+}
+
+function QuestionsPage(props: QuestionsPageProps) {
   const {
     navigateAfterTestEnd,
     selectedLevel,
     examTimeLimit,
     registrationData,
+    handleLogOut,
   } = props;
   const questions = useSelector(selectLevelWiseQuestionsData);
   const dispatch = useAppDispatch();
@@ -37,13 +48,13 @@ function QuestionsPage(props: any) {
     [] as dm.EvaluationItem[]
   );
 
-  // setTimeout(() => {
-  //   if (timeLeft === 0) {
-  //     setIsExamOver(true);
-  //   } else {
-  //     setTimeLeft(timeLeft - 1);
-  //   }
-  // }, 1000);
+  setTimeout(() => {
+    if (timeLeft === 0) {
+      setIsExamOver(true);
+    } else {
+      setTimeLeft(timeLeft - 1);
+    }
+  }, 1000);
 
   const currentQuestion: QuestionDataItem = questions[currentQuestionIndex];
 
@@ -178,7 +189,12 @@ function QuestionsPage(props: any) {
     }
   };
 
-  const alertDialogPromptProps = { isDialogOpen, title: "Submit", dialogContent: "Do you want to end the test and submit?", handleCloseWithResponse };
+  const alertDialogPromptProps = {
+    isDialogOpen,
+    title: "Submit",
+    dialogContent: "Do you want to end the test and submit?",
+    handleCloseWithResponse,
+  };
 
   const questionsNavPanelProps = {
     currentQuestion: currentQuestionIndex + 1,
@@ -189,12 +205,15 @@ function QuestionsPage(props: any) {
     handleQuestionNavigation: (idx: number) => setCurrentQuestionIndex(idx),
   };
 
+  const welcomeUserProps = { registrationData, handleLogOut };
+
   /**
    * Test component contains Question components and button panel.
    * This is where question answers are displayed along with the timer.
    */
   const testComponent = (
     <div data-testid="testComponent">
+      <WelcomeUser {...welcomeUserProps} />
       <AlertDialog {...alertDialogPromptProps} />
       <div className="commonFlexPanel">
         <div className="panLeft80">
@@ -228,6 +247,7 @@ function QuestionsPage(props: any) {
     evaulationData,
     registrationData,
     navigateAfterTestEnd,
+    handleLogOut,
   };
 
   return isExamOver ? <ExamOverPage {...examOverProps} /> : testComponent;
