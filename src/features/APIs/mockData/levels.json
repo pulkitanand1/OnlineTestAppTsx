@@ -1,5 +1,5 @@
 [
-  { "id": 1, "value": "Level 1", "timeLimit": 71 },
-  { "id": 2, "value": "Level 2", "timeLimit": 82 },
-  { "id": 3, "value": "Level 3", "timeLimit": 93 }
+  { "id": 1, "value": "Level 1", "timeLimit": 300 },
+  { "id": 2, "value": "Level 2", "timeLimit": 360 },
+  { "id": 3, "value": "Level 3", "timeLimit": 420 }
 ]

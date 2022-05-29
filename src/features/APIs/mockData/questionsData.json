@@ -36,6 +36,42 @@
     ]
   },
   {
+    "level": 1,
+    "questionId": 4,
+    "questionType": "m",
+    "questionText": "Identify the animals among these",
+    "answers": [
+      { "answerId": 1, "answerText": "Cuckoo" },
+      { "answerId": 2, "answerText": "Bear" },
+      { "answerId": 3, "answerText": "Monkey" },
+      { "answerId": 4, "answerText": "Eagle" }
+    ]
+  },
+  {
+    "level": 1,
+    "questionId": 5,
+    "questionType": "s",
+    "questionText": "Which direction does the sun set?",
+    "answers": [
+      { "answerId": 1, "answerText": "East" },
+      { "answerId": 2, "answerText": "West" },
+      { "answerId": 3, "answerText": "North" },
+      { "answerId": 4, "answerText": "South" }
+    ]
+  },
+  {
+    "level": 1,
+    "questionId": 5,
+    "questionType": "s",
+    "questionText": "How many days are there in a week?",
+    "answers": [
+      { "answerId": 1, "answerText": "5" },
+      { "answerId": 2, "answerText": "6" },
+      { "answerId": 3, "answerText": "7" },
+      { "answerId": 4, "answerText": "8" }
+    ]
+  },
+  {
     "level": 2,
     "questionId": 1,
     "questionType": "s",
@@ -60,7 +96,6 @@
       { "answerId": 4, "answerText": "31" }
     ]
   },
-
   {
     "level": 2,
     "questionId": 3,
@@ -71,6 +106,42 @@
       { "answerId": 2, "answerText": "Sun sets in the east" },
       { "answerId": 3, "answerText": "3 is greater than 5" },
       { "answerId": 4, "answerText": "Earth has 1 moon" }
+    ]
+  },
+  {
+    "level": 2,
+    "questionId": 4,
+    "questionType": "s",
+    "questionText": "What is the capital of Japan?",
+    "answers": [
+      { "answerId": 1, "answerText": "Berlin" },
+      { "answerId": 2, "answerText": "New Delhi" },
+      { "answerId": 3, "answerText": "Hawaii" },
+      { "answerId": 4, "answerText": "Tokyo" }
+    ]
+  },
+  {
+    "level": 2,
+    "questionId": 5,
+    "questionType": "s",
+    "questionText": "How many weeks does a fortnight have?",
+    "answers": [
+      { "answerId": 1, "answerText": "4" },
+      { "answerId": 2, "answerText": "2" },
+      { "answerId": 3, "answerText": "8" },
+      { "answerId": 4, "answerText": "1.5" }
+    ]
+  },
+  {
+    "level": 2,
+    "questionId": 6,
+    "questionType": "s",
+    "questionText": "What's the boiling point of water at seal level?",
+    "answers": [
+      { "answerId": 1, "answerText": "95 degree celsius" },
+      { "answerId": 2, "answerText": "100 degree celsius" },
+      { "answerId": 3, "answerText": "105 degree celsius" },
+      { "answerId": 4, "answerText": "110 degree celsius" }
     ]
   },
   {
@@ -107,6 +178,42 @@
       { "answerId": 2, "answerText": "Orange" },
       { "answerId": 3, "answerText": "Tomato" },
       { "answerId": 4, "answerText": "Grapes" }
+    ]
+  },
+  {
+    "level": 3,
+    "questionId": 4,
+    "questionType": "s",
+    "questionText": "How many days are there in a leap year?",
+    "answers": [
+      { "answerId": 1, "answerText": "365" },
+      { "answerId": 2, "answerText": "364" },
+      { "answerId": 3, "answerText": "366" },
+      { "answerId": 4, "answerText": "367" }
+    ]
+  },
+  {
+    "level": 3,
+    "questionId": 5,
+    "questionType": "m",
+    "questionText": "How many continents are there in the world?",
+    "answers": [
+      { "answerId": 1, "answerText": "5" },
+      { "answerId": 2, "answerText": "3" },
+      { "answerId": 3, "answerText": "7" },
+      { "answerId": 4, "answerText": "8" }
+    ]
+  },
+  {
+    "level": 3,
+    "questionId": 6,
+    "questionType": "s",
+    "questionText": "What's the freezing point of water?",
+    "answers": [
+      { "answerId": 1, "answerText": "1 degree celsius" },
+      { "answerId": 2, "answerText": "-1 degree celsius" },
+      { "answerId": 3, "answerText": "0 degeree celsius" },
+      { "answerId": 4, "answerText": "2 degree celsius" }
     ]
   }
 ]
