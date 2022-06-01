@@ -15,8 +15,15 @@ function App() {
   // Use this value to toggle testing.
   let canDoExamWithoutRegister: boolean = false;
   const [canDoExam, setCanDoExam] = useState(canDoExamWithoutRegister);
+
+  const intialRegState =
+    localStorage.getItem("regData") === null
+      ? ({} as RegistrationData)
+      : (JSON.parse(
+          localStorage.getItem("regData") as string
+        ) as RegistrationData);
   const [registrationData, setRegistrationData] = useState(
-    {} as RegistrationData
+    intialRegState as RegistrationData
   );
   const Registration = lazy(() => import("./components/exam/Registration"));
   const Exam = lazy(() => import("./components/exam/Exam"));
@@ -43,10 +50,18 @@ function App() {
 
   function handleLogOut() {
     setCanDoExam(false);
+    clearRegistrationData();
+  }
+
+  function clearRegistrationData() {
     setRegistrationData({} as RegistrationData);
   }
 
-  const registrationPassThruProps = { setCanDoExam, setRegistrationData };
+  function saveRegistrationData(regData: RegistrationData) {
+    localStorage.setItem("regData", JSON.stringify(regData));
+  }
+
+  const registrationPassThruProps = { setCanDoExam, saveRegistrationData };
 
   const examProps = {
     navigateAfterTestEnd: navigateToHome,

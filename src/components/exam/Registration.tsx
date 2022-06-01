@@ -11,7 +11,7 @@ import RegistrationData from "../../dataTypes/RegistrationData";
  * @returns
  */
 function Registration(props: any) {
-  const { setCanDoExam, setRegistrationData } = props;
+  const { setCanDoExam, saveRegistrationData } = props;
   let navigate = useNavigate();
   const initialRegValues = {
     fName: "",
@@ -25,7 +25,7 @@ function Registration(props: any) {
       <Formik
         initialValues={initialRegValues}
         onSubmit={(values) => {
-          setRegistrationData(values);
+          saveRegistrationData(values);
           setCanDoExam(true);
           navigate("/exam", { replace: true });
         }}
