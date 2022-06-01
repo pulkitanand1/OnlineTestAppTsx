@@ -35,6 +35,9 @@ function QuestionsPage(props: QuestionsPageProps) {
   const questions = useSelector(selectLevelWiseQuestionsData);
   const dispatch = useAppDispatch();
   useEffect(() => {
+    if (timeLeft === 0){
+      finishTest();
+    }
     updateLevelWiseQuestionData(dispatch, selectedLevel);
     setCurrentQuestionIndex(0);
   }, []);
