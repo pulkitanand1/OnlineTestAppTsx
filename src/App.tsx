@@ -65,6 +65,7 @@ function App() {
   }
 
   function saveRegistrationData(regData: RegistrationData) {
+    setRegistrationData(regData);
     localStorage.setItem("regData", JSON.stringify(regData));
   }
 

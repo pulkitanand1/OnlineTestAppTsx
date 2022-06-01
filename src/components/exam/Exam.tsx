@@ -29,7 +29,7 @@ function Exam(props: ExamProps) {
   const [examTimeLimit, setExamTimeLimit] = useState(
     Math.floor(timeLeft / 1000)
   );
-  const [rulesAccepted, setRulesAccepted] = useState(initialExamLevel > 0);
+  const [rulesAccepted, setRulesAccepted] = useState(testEndTime > 0);
 
   /**
    * The callback that records seleted level and its time limit for the test.
