@@ -1,8 +1,10 @@
 import React from "react";
-import { EvaluationItem } from "../../features/dataManipulation/DataManipulation";
 import FancyButton from "../common/FancyButton";
 import * as dm from "../../features/dataManipulation/DataManipulation";
 import WelcomeUser from "./WelcomUser";
+import { AnswerMatrixItem } from "../../dataTypes/AnswerMatrixItem";
+import { useSelector } from "react-redux";
+import { selectLevelWiseQuestionsData } from "../../features/exam/levelWiseQuestionsSlice";
 
 /**
  * This is displayed when the test ends either after timeout or manual submission.
@@ -10,19 +12,21 @@ import WelcomeUser from "./WelcomUser";
  */
 
 interface ExamOverPageProps {
-  evaulationData: EvaluationItem[];
+  answerMatrix: AnswerMatrixItem[];
   registrationData: any;
   navigateAfterTestEnd: () => void;
   handleLogOut: () => void;
 }
 
 const ExamOverPage = (props: ExamOverPageProps) => {
-  const {
-    evaulationData,
-    navigateAfterTestEnd,
-    registrationData,
-    handleLogOut,
-  } = props;
+  const { navigateAfterTestEnd, registrationData, handleLogOut } = props;
+
+  const answerMatrix = JSON.parse(
+    localStorage.getItem("answerMatrix") as string
+  ) as AnswerMatrixItem[];
+
+  const questions = useSelector(selectLevelWiseQuestionsData);
+  const evaulationData = dm.finishAndEvaluateTest(answerMatrix, questions);
   const totalQuestions = evaulationData.length;
   const attemptedQuestions = evaulationData.filter(
     (ed) => ed.userAnswers?.length > 0

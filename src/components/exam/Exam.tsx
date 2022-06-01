@@ -12,21 +12,39 @@ interface ExamProps {
 /** Returns the Exam component which renders the questions Page and FinalResult page. */
 function Exam(props: ExamProps) {
   const { registrationData, navigateAfterTestEnd, handleLogOut } = props;
-  const [rulesAccepted, setRulesAccepted] = useState(false);
-  const [selectedLevel, setSelectedLevel] = useState(1);
-  const [examTimeLimit, setExamTimeLimit] = useState(1);
+
+  const testEndTime =
+    localStorage.getItem("otaTestEndTime") === null
+      ? 0
+      : Number.parseInt(localStorage.getItem("otaTestEndTime") as string);
+  const initialExamLevel =
+    localStorage.getItem("otaSelectedLevel") === null
+      ? 1
+      : Number.parseInt(localStorage.getItem("otaSelectedLevel") as string);
+  const [selectedLevel, setSelectedLevel] = useState(initialExamLevel);
+
+  const timeLeft =
+    testEndTime > 0 && testEndTime > Date.now() ? testEndTime - Date.now() : 0;
+
+  const [examTimeLimit, setExamTimeLimit] = useState(
+    Math.floor(timeLeft / 1000)
+  );
+  const [rulesAccepted, setRulesAccepted] = useState(initialExamLevel > 0);
 
   /**
    * The callback that records seleted level and its time limit for the test.
    * @param selectedLevel
    * @param timeLimit
    */
-  const acceptRules = (selectedLevel: number, timeLimit: number) => {
-    if (rulesAccepted === false) {
-      setExamTimeLimit(timeLimit);
-      setSelectedLevel(selectedLevel);
-      setRulesAccepted(true);
-    }
+  const handleStartTest = (selectedLevel: number, timeLimit: number) => {
+    localStorage.setItem("otaSelectedLevel", selectedLevel.toString());
+    localStorage.setItem(
+      "otaTestEndTime",
+      (Date.now() + timeLimit * 1000).toString()
+    );
+    setExamTimeLimit(timeLimit);
+    setSelectedLevel(selectedLevel);
+    setRulesAccepted(true);
   };
 
   /**
@@ -37,18 +55,23 @@ function Exam(props: ExamProps) {
     navigateAfterTestEnd();
   };
 
-  const examInfoProps = { acceptRules, registrationData, handleLogOut };
+  const informationProps = { handleStartTest, registrationData, handleLogOut };
   /** Exam information component which is rendered when user accepts the rules */
-  const examInformation = <Information {...examInfoProps} />;
+  const examInformation = <Information {...informationProps} />;
 
-  const passThruExamProps = {
+  const questionPageProps = {
     selectedLevel,
     examTimeLimit,
     registrationData,
     navigateAfterTestEnd: beforeNavigateAfterTestEnd,
     handleLogOut,
   };
-  const questionsPage = <QuestionsPage {...passThruExamProps} />;
+  const questionsPage = <QuestionsPage {...questionPageProps} />;
+
+  let answerMatrixItemPresent = localStorage.getItem("answerMatrix") !== null;
+  if (answerMatrixItemPresent) {
+    return questionsPage;
+  }
 
   return rulesAccepted ? questionsPage : examInformation;
 }

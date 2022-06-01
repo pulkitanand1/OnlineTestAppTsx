@@ -45,15 +45,22 @@ function App() {
 
   /** Returns control back to home with the help of state. */
   function navigateToHome() {
+    localStorage.removeItem("answerMatrix");
+    localStorage.removeItem("otaSelectedLevel");
+    localStorage.removeItem("otaTestEndTime");
     setCanDoExam(false);
   }
 
   function handleLogOut() {
     setCanDoExam(false);
-    clearRegistrationData();
+    clearLocalStorageData();
   }
 
-  function clearRegistrationData() {
+  function clearLocalStorageData() {
+    localStorage.removeItem("regData");
+    localStorage.removeItem("otaTestEndTime");
+    localStorage.removeItem("otaSelectedLevel");
+    localStorage.removeItem("answerMatrix");
     setRegistrationData({} as RegistrationData);
   }
 
@@ -79,10 +86,15 @@ function App() {
             <Route
               path="/"
               element={
-                <Registration
-                  {...registrationPassThruProps}
-                  data-testid="registration"
-                />
+                <ProtectedRoute
+                  canBeRedirected={intialRegState.fName?.length > 0}
+                  redirectPath="/exam"
+                >
+                  <Registration
+                    {...registrationPassThruProps}
+                    data-testid="registration"
+                  />
+                </ProtectedRoute>
               }
             />
             <Route

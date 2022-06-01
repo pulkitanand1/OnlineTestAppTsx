@@ -1,7 +1,6 @@
 import TimerForTest from "./TimerForTest";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import * as dm from "../../features/dataManipulation/DataManipulation";
 import "../../Common.scss";
 import Question from "./Question";
 import { AnswerMatrixItem } from "../../dataTypes/AnswerMatrixItem";
@@ -42,15 +41,14 @@ function QuestionsPage(props: QuestionsPageProps) {
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(examTimeLimit);
-  const [isExamOver, setIsExamOver] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [evaulationData, setEvaluationData] = useState(
-    [] as dm.EvaluationItem[]
+  const [isExamOver, setIsExamOver] = useState(
+    localStorage.getItem("otaTestEndTime") === null
   );
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   setTimeout(() => {
     if (timeLeft === 0) {
-      setIsExamOver(true);
+      finishTest();
     } else {
       setTimeLeft(timeLeft - 1);
     }
@@ -58,22 +56,30 @@ function QuestionsPage(props: QuestionsPageProps) {
 
   const currentQuestion: QuestionDataItem = questions[currentQuestionIndex];
 
-  let blankAnswersMatrix = [] as AnswerMatrixItem[];
   const totalQuestions = questions.length;
-  const [answerMatrix, setAnswerMatrix] = useState(blankAnswersMatrix);
+  const [answerMatrix, setAnswerMatrix] = useState([] as AnswerMatrixItem[]);
 
   useEffect(() => {
-    setAnswerMatrix(
-      questions.map((q, i) => {
-        return {
-          index: i,
-          level: selectedLevel,
-          questionId: q.questionId,
-          questionType: q.questionType,
-          selectedAnswerIds: [],
-        } as AnswerMatrixItem;
-      })
-    );
+    if (totalQuestions > 0) {
+      let amJson = JSON.parse(localStorage.getItem("answerMatrix") as string);
+      if (amJson === null) {
+        let newAnswerMatrix = questions.map((q, i) => {
+          return {
+            index: i,
+            level: selectedLevel,
+            questionId: q.questionId,
+            questionType: q.questionType,
+            selectedAnswerIds: [],
+          } as AnswerMatrixItem;
+        });
+        localStorage.setItem("answerMatrix", JSON.stringify(newAnswerMatrix));
+        setAnswerMatrix(newAnswerMatrix);
+      } else {
+        setAnswerMatrix(amJson);
+      }
+    } else {
+      setAnswerMatrix([] as AnswerMatrixItem[]);
+    }
   }, [totalQuestions]);
 
   /**
@@ -118,6 +124,7 @@ function QuestionsPage(props: QuestionsPageProps) {
           }
         }
       }
+      localStorage.setItem("answerMatrix", JSON.stringify(answerMatrix));
       setAnswerMatrix([...answerMatrix]);
     }
   }
@@ -160,8 +167,7 @@ function QuestionsPage(props: QuestionsPageProps) {
    * Performs neccessary state changes to end test session in both auto and manual submission.
    */
   const finishTest = () => {
-    const evalData = dm.finishAndEvaluateTest(answerMatrix, questions);
-    setEvaluationData(evalData);
+    localStorage.removeItem("otaTestEndTime");
     setIsDialogOpen(false); // To automatically close dialog when test ends.
     setIsExamOver(true);
     setTimeLeft(0);
@@ -244,13 +250,17 @@ function QuestionsPage(props: QuestionsPageProps) {
   );
 
   const examOverProps = {
-    evaulationData,
+    answerMatrix,
     registrationData,
     navigateAfterTestEnd,
     handleLogOut,
   };
 
-  return isExamOver ? <ExamOverPage {...examOverProps} /> : testComponent;
+  return isExamOver && answerMatrix.length > 0 ? (
+    <ExamOverPage {...examOverProps} />
+  ) : (
+    testComponent
+  );
 }
 
 QuestionsPage.propTypes = {

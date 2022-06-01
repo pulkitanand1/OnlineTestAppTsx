@@ -2,7 +2,7 @@
   { "level": 1, "questionId": 1, "correctAnswerIds": [3] },
   { "level": 1, "questionId": 2, "correctAnswerIds": [2, 3] },
   { "level": 1, "questionId": 3, "correctAnswerIds": [4] },
-  { "level": 1, "questionId": 4, "correctAnswerIds": [2,3] },
+  { "level": 1, "questionId": 4, "correctAnswerIds": [2, 3] },
   { "level": 1, "questionId": 5, "correctAnswerIds": [2] },
   { "level": 1, "questionId": 6, "correctAnswerIds": [3] },
   { "level": 2, "questionId": 1, "correctAnswerIds": [3] },

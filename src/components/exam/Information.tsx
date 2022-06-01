@@ -10,33 +10,32 @@ import {
 } from "../../features/exam/examDataProvider";
 import { Level } from "../../dataTypes/Level";
 import RegistrationData from "../../dataTypes/RegistrationData";
-import FancyButton from "../common/FancyButton";
-import AlertDialog from "../common/AlertDialog";
 import WelcomeUser from "./WelcomUser";
 
 interface InformationProps {
-  acceptRules: (selectedLevel: number, timeLimit: number) => void;
+  handleStartTest: (selectedLevel: number, timeLimit: number) => void;
   registrationData: RegistrationData;
   handleLogOut: () => void;
 }
 
 /** Returns the Exam Information Component  */
 function Information(props: InformationProps) {
-  const { acceptRules, registrationData, handleLogOut } = props;
+  const { handleStartTest, registrationData, handleLogOut } = props;
   const levels = useAppSelector(selectLevelsData);
   const rules = useAppSelector(selectRulesData);
+  const [examLevel, setExamLevel] = useState(
+    levels.find((l) => l.id === 1) as Level
+  );
   const dispatch = useAppDispatch();
-  const [examLevel, setExamlLevel] = useState({} as Level);
   const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     updateRulesData(dispatch);
     updateLevelsData(dispatch);
-    setExamlLevel(levels[0]);
   }, []);
 
   useEffect(() => {
-    setExamlLevel(levels[0]);
+    setExamLevel(levels.find((l) => l.id === 1) as Level);
   }, [levels]);
 
   /** Handles the level selection event.
@@ -44,7 +43,7 @@ function Information(props: InformationProps) {
   function handleLevelSelection(e: any) {
     let eLevel = levels.find((l) => l.id === parseInt(e.target.value));
     if (eLevel) {
-      setExamlLevel(eLevel);
+      setExamLevel(eLevel);
     }
   }
 
@@ -68,7 +67,11 @@ function Information(props: InformationProps) {
         <div className="examStartPanel">
           <div>
             <h2>Select the exam level</h2>
-            <select onChange={handleLevelSelection} required>
+            <select
+              onChange={handleLevelSelection}
+              defaultValue={examLevel?.id}
+              required
+            >
               {levels.map((lv) => (
                 <option key={lv.id} value={lv.id}>
                   {lv.value}
@@ -92,7 +95,7 @@ function Information(props: InformationProps) {
           </div>
           <div>
             <button
-              onClick={() => acceptRules(examLevel.id, examLevel.timeLimit)}
+              onClick={() => handleStartTest(examLevel.id, examLevel.timeLimit)}
               disabled={!isChecked}
               className="greenButton"
             >
